@@ -1,0 +1,28 @@
+
+html, body, .app, .main {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .slider {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    height: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+    .slider-wrapper {
+      position: relative;
+      height: 100%;
+      width: 100%;
+    }
+      .slide {
+        display: inline-block;
+        height: 500px;
+        width: 100%;
+        margin: 0
+      }
+    
