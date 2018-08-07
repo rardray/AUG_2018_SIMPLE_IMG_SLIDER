@@ -2,10 +2,11 @@ import React from 'react';
 import DSC_0025 from './images/DSC_0025.JPG'
 //import './Slide.css'
 import '../style.css'
+import $ from 'jquery'
 
 
-const Slide = (  {image}  ) => {
-    console.log(image)
+const Slide = (  props ) => {
+    console.log(props.image)
     const styles = {
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
@@ -15,7 +16,7 @@ const Slide = (  {image}  ) => {
     }
     return (
         <div className =  'slide' style = {styles} >
-        <img style = {{ width: '50%', height: 'auto', dislpay: 'inline-block', padding: 'auto',margin: 'auto'}} src={require('./images/' + image + '.JPG')} />
+        <img style = {{ width: props.flex, height: 'auto', dislpay: 'inline-block', padding: 20, verticalAlign: 'center', margin: 'auto'}} src={require('./images/' + props.image + '.JPG')} />
         </div>
     )
 }

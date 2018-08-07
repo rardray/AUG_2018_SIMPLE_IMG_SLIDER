@@ -1,4 +1,5 @@
 import React from 'react';
+import '../style.css'
 
 const LeftArrow = (props) => {
     return (<div className = 'left-arrow' onClick = { props.prevSlide } >
