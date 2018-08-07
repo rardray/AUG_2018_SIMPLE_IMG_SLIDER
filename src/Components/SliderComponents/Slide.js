@@ -16,7 +16,7 @@ const Slide = (  props ) => {
     }
     return (
         <div className =  'slide' style = {styles} >
-        <img style = {{ width: props.flex, height: 'auto', dislpay: 'inline-block', padding: 20, verticalAlign: 'center', margin: 'auto'}} src={require('./images/' + props.image + '.JPG')} />
+        <img style = {{ width: props.flex, height: 'auto', dislpay: 'inline-block', padding: 20, borderRadius: 50, verticalAlign: 'center', margin: 'auto'}} src={require('./images/' + props.image + '.JPG')} />
         </div>
     )
 }

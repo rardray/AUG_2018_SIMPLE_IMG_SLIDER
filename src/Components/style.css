@@ -29,9 +29,17 @@ html, body, .app, .main {
       .right-arrow {
           cursor: pointer;
           display: inline-block;
+          background-color: darkgray;
+          border-radius: 100%;
+          padding: 6px;
+          margin: 10px;
       }
 
       .left-arrow {
           cursor: pointer;
           display: inline-block;
+          background-color: darkgray;
+          border-radius: 100%;
+          padding: 6px;
+          margin: 10px;
       }

@@ -24,8 +24,6 @@ class Slider extends Component {
             return this.setState({
                 currentIndex: 0,
                 translateValue: 0, 
-               
-
             })
         }
         this.setState(prevState => ({
@@ -36,8 +34,9 @@ class Slider extends Component {
     componentWillMount() {
         this.adjustHeight()
     }
+
     componentDidMount() {
-        window.addEventListener('resize', this.adjustHeight )
+        window.addEventListener('resize', this.adjustHeight, this.slideWidth )
     }
 
     adjustHeight = () => {
@@ -54,7 +53,6 @@ class Slider extends Component {
             currentIndex: prevState.currentIndex -1,
             translateValue: prevState.translateValue - -(this.slideWidth())
         }))
-       console.log(this.slideWidth())
     }
 
     slideWidth = () => {
