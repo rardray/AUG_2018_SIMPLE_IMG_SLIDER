@@ -2,19 +2,16 @@ import React, { Component } from 'react';
 import Slide from './SliderComponents/Slide'
 import RightArrow from './SliderComponents/RightArrow';
 import LeftArrow from './SliderComponents/LeftArrow';
-import DSC_0025 from './SliderComponents/images/DSC_0025.JPG'
-import DSC_0026 from './SliderComponents/images/DSC_0026.JPG'
 import './style.css'
 import $ from 'jquery'
 import Dots from './SliderComponents/Dots'
-const url = `url(./SliderComponents/images/DSC_0025.JPG)`
 
 
 class Slider extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            images: ['DSC_0119', 'DSC_0026', 'DSC_0124', 'DSC_0131', 'DSC_0130', 'DSC_0129'],
+            images: ['DSC_0119', 'DSC_0026', 'DSC_0124', 'DSC_0131', 'DSC_0130', 'DSC_0129', 'DSC_0128'],
             currentIndex: 0,
             translateValue: 0,
             width: '',
@@ -40,6 +37,8 @@ class Slider extends Component {
         window.addEventListener('resize', this.adjustHeight)
         window.addEventListener('resize', this.resetValues)
         window.addEventListener('dragleave', this.nextSlide)
+        window.addEventListener('keydown', this.keyRight)
+        window.addEventListener('keydown', this.keyLeft)
     }
 
     adjustHeight = () => {
@@ -63,12 +62,22 @@ class Slider extends Component {
     slideWidth = () => {
         return document.querySelector('.slide').clientWidth //<--- finds width of class 'slide'
     }
+    keyRight = (e) => {
+        if(e.keyCode == 39) {
+            return this.nextSlide()
+        }
+    }
+    keyLeft = (e) => {
+        if(e.keyCode == 37) {
+            return this.prevSlide()
+        }
+    }
     render() {
         const pictureWrap = () => {
             if(  this.state.width < this.state.height) {
-                return '90%'
+                return '95%'
             } else  if (this.state.width < 1000) {
-                return '75%'
+                return '80%'
             } else {
                 return "60%"
             }
