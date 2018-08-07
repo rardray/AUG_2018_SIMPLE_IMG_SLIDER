@@ -6,6 +6,7 @@ import DSC_0025 from './SliderComponents/images/DSC_0025.JPG'
 import DSC_0026 from './SliderComponents/images/DSC_0026.JPG'
 import './style.css'
 import $ from 'jquery'
+import Dots from './SliderComponents/Dots'
 const url = `url(./SliderComponents/images/DSC_0025.JPG)`
 
 
@@ -13,7 +14,7 @@ class Slider extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            images: ['DSC_0119', 'DSC_0026', 'DSC_0124', 'DSC_0131'],
+            images: ['DSC_0119', 'DSC_0026', 'DSC_0124', 'DSC_0131', 'DSC_0130', 'DSC_0129'],
             currentIndex: 0,
             translateValue: 0,
             width: '',
@@ -36,7 +37,9 @@ class Slider extends Component {
     }
 
     componentDidMount() {
-        window.addEventListener('resize', this.adjustHeight, this.slideWidth )
+        window.addEventListener('resize', this.adjustHeight)
+        window.addEventListener('resize', this.resetValues)
+        window.addEventListener('dragleave', this.nextSlide)
     }
 
     adjustHeight = () => {
@@ -54,7 +57,9 @@ class Slider extends Component {
             translateValue: prevState.translateValue - -(this.slideWidth())
         }))
     }
-
+    resetValues = () => {
+        this.setState({currentIndex: 0, translateValue: 0})
+    }
     slideWidth = () => {
         return document.querySelector('.slide').clientWidth //<--- finds width of class 'slide'
     }
@@ -80,6 +85,11 @@ class Slider extends Component {
             })}
             </div>
             <LeftArrow prevSlide = { this.prevSlide } />
+            {this.state.images.map((el, i) => {
+                return (
+                    <Dots key = {i} index = {i} currentIndex = {this.state.currentIndex} resetValues = {this.resetValues} />
+                )
+            })}
             <RightArrow nextSlide = { this.nextSlide } />
 
             </div>

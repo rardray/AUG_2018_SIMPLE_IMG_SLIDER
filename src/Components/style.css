@@ -34,6 +34,13 @@ html, body, .app, .main {
           padding: 6px;
           margin: 10px;
       }
+      .right-arrow:hover {
+        background-color: white;
+        padding: 11px;
+        animation-name: arrows;
+        animation-duration: .3s;
+        animation-iteration-count: 1
+    }
 
       .left-arrow {
           cursor: pointer;
@@ -43,3 +50,52 @@ html, body, .app, .main {
           padding: 6px;
           margin: 10px;
       }
+      .left-arrow:active {
+          animation-name: arrow-click;
+          animation-duration: .3s;
+          animation-iteration-count: 5;
+
+      }
+      .left-arrow:hover {
+          background-color: white;
+          padding: 11px;
+          animation-name: arrows;
+          animation-duration: .3s;
+          animation-iteration-count: 1
+      }
+      .dots {
+          height: 8px;
+          width: 8px;
+          border-radius: 100%;
+          background-color: grey;
+          display: inline-block;
+          vertical-align: middle;
+          margin: 10px;
+      }
+      .hdots {
+        height: 12px;
+        width: 12px;
+        border-radius: 100%;
+        background-color: white;
+        display: inline-block;
+        vertical-align: middle;
+        margin: 6px;
+        animation-name: dot-animation;
+        animation-duration: .3s;
+        animation-iteration-count: 1;
+    }
+
+    @keyframes arrows {
+        from { background-color: darkslategray; padding: 6px; transform: rotate(0deg)}
+        to { background-color: white; padding: 11px; transform: rotate(360deg)}
+    }
+
+    @keyframes arrow-click {
+        from { background-color: white; transform: translateX(0px)}
+        to { background-color: black; transform: translateX(-1000px)}
+    }
+
+    @keyframes dot-animation {
+        from {background-color: darkgray; height: 6px; width: 6px; }
+        to {background-color: white; height: 13px; width: 13px;}
+    }
