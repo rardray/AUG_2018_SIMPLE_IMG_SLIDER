@@ -17,8 +17,12 @@ const Dots = (props) => {
         return false
     }
     return (
-        <div className = {highlightDots() ? 'hdots' : 'dots'} name = {index} onClick = { first() ? resetValues : '' } >
-            <p>{index}</p></div>
+        <div 
+            className = {highlightDots() ? 'hdots' : 'dots'} 
+            name = {index} 
+            onClick = { first() ? resetValues : '' } >
+          <p>{index}</p>
+        </div>
     )
 }
 

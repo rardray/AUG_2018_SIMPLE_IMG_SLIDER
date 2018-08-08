@@ -5,7 +5,7 @@ import LeftArrow from './SliderComponents/LeftArrow';
 import './style.css'
 import $ from 'jquery'
 import Dots from './SliderComponents/Dots'
-
+import SlideShow from './SlideShow'
 
 class Slider extends Component {
     constructor(props) {
@@ -16,7 +16,30 @@ class Slider extends Component {
             translateValue: 0,
             width: '',
             height: ''
-    }}
+    }
+        this.setSlideshow = ''
+}
+   
+    componentWillMount() {
+        this.adjustHeight()
+    }
+
+    componentDidMount() {
+        window.addEventListener('resize', this.adjustHeight)
+        window.addEventListener('resize', this.resetValues)
+        window.addEventListener('dragleave', this.nextSlide)
+        window.addEventListener('keydown', this.keyRight)
+        window.addEventListener('keydown', this.keyLeft)
+     
+    }
+
+    componentWillUnmount() {
+        this.stopSlideShow()
+    }
+
+    adjustHeight = () => {
+        this.setState({width: $(window).width(), height: $(window).height() })
+    }
     nextSlide = () => {
         if(this.state.currentIndex === this.state.images.length -1) { //<--- returns to beginning of slide if at last slide
             return this.setState({
@@ -28,21 +51,6 @@ class Slider extends Component {
             currentIndex: prevState.currentIndex + 1,
             translateValue: prevState.translateValue + - (this.slideWidth())
         }))
-    }
-    componentWillMount() {
-        this.adjustHeight()
-    }
-
-    componentDidMount() {
-        window.addEventListener('resize', this.adjustHeight)
-        window.addEventListener('resize', this.resetValues)
-        window.addEventListener('dragleave', this.nextSlide)
-        window.addEventListener('keydown', this.keyRight)
-        window.addEventListener('keydown', this.keyLeft)
-    }
-
-    adjustHeight = () => {
-        this.setState({width: $(window).width(), height: $(window).height() })
     }
     prevSlide = () => {
         if(this.state.currentIndex === 0) {
@@ -56,12 +64,23 @@ class Slider extends Component {
             translateValue: prevState.translateValue - -(this.slideWidth())
         }))
     }
+    startSlideShow = () => {
+        this.setSlideshow = setInterval(()=>
+            this.nextSlide(), 
+            5000
+        )
+        console.log('was activated')
+    }
+    stopSlideShow = () => {
+        clearInterval(this.setSlideshow)
+    }
     resetValues = () => {
         this.setState({currentIndex: 0, translateValue: 0})
     }
     slideWidth = () => {
         return document.querySelector('.slide').clientWidth //<--- finds width of class 'slide'
     }
+    //key listeners
     keyRight = (e) => {
         if(e.keyCode == 39) {
             return this.nextSlide()
@@ -84,6 +103,7 @@ class Slider extends Component {
         }
         return (
             <div className= "slider">
+            <SlideShow startSlideShow = {this.startSlideShow} stopSlideShow = {this.stopSlideShow}/>
             <div className = 'slider-wrapper' style = {{
                 transform: `translateX(${this.state.translateValue}px)`, //<--- moves div to right by calculating previous width.
                 transition: 'transform ease-out 0.45s' }} >
