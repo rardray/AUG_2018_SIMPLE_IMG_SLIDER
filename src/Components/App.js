@@ -5,9 +5,23 @@ import '../StyleSheets/App.css'
 import $ from 'jquery';
 
 class App extends Component {
+  state = {
+    windowHeight: null
+  }
+  componentWillMount() {
+    this.adjustHeight()
+
+  }
+  componentDidMount(){
+    window.addEventListener('resize', this.adjustHeight)
+    console.log(this.state.windowHeight)
+  }
+  adjustHeight = () =>{
+    this.setState({windowHeight: $(window).height()})
+  }
   render() {
     return (
-      <div className = 'App'>
+      <div className = 'App' style = {{minHeight: this.state.windowHeight}}>
        <Slider/>
        </div>
     );

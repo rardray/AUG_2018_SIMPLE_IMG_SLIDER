@@ -5,22 +5,22 @@ const Dots = (props) => {
     const {index, currentIndex, resetValues } = props
     const highlightDots = () => {
         if(currentIndex === index) {
-            return true
+            return 1
         } else {
-            return false
+            return null 
         }
     }
     const first = () => {
         if(index === 0) {
-            return true
+            return 1
         }
-        return false
+        return null
     }
     return (
         <div 
             className = {highlightDots() ? 'hdots' : 'dots'} 
             name = {index} 
-            onClick = { first() ? resetValues : '' } >
+            onClick = { first() ? resetValues : null } >
           <p>{index}</p>
         </div>
     )
