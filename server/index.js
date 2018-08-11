@@ -5,14 +5,35 @@ const express = require('express'),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser')
 const router = require('./router')
+var fileUpload = require('express-fileupload');
 const server = app.listen(config.port)
 console.log('Server running on ' + config.port)
 
 mongoose.connect(config.database)
 
+app.use(fileUpload());
+app.use('/public', express.static(__dirname + '/public'));
+
+
 app.use(logger('dev'))
 app.use(bodyParser.urlencoded({extended : false}))
 app.use(bodyParser.json())
+
+
+app.post('/upload', (req, res, next) => {
+    console.log(req);
+    var imageFile = req.files.file;
+  
+    imageFile.mv(`${__dirname}/public/images/${req.body.filename}.jpg`, function(err) {
+      if (err) {
+        return res.status(500).send(err);
+      }
+  
+      res.json({file: `/public/${req.body.filename}.jpg`});
+    });
+  
+  })
+
 //cors
 app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*')

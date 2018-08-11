@@ -25,3 +25,4 @@ yarn-error.log*
 .vscode
 server/db
 /server/db
+/server/public/images
