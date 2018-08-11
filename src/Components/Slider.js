@@ -6,18 +6,20 @@ import './style.css'
 import $ from 'jquery'
 import Dots from './SliderComponents/Dots'
 import SlideShow from './SlideShow'
+import {windowListeners, sliderPayload } from './Actions/Actions';
 
 class Slider extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            images: ['DSC_0119', 'DSC_0026', 'DSC_0124', 'DSC_0131', 'DSC_0130', 'DSC_0129', 'DSC_0128'],
+            images: ['DSC_0119', 'DSC_0026', 'DSC_0124', 'DSC_0131', 'DSC_0130', 'DSC_0129', 'DSC_0128', 'DSC_0105'],
             currentIndex: 0,
             translateValue: 0,
             width: '',
             height: ''
     }
         this.setSlideshow = ''
+        this.windowListeners = windowListeners.bind(this)
 }
    
     componentWillMount() {
@@ -25,11 +27,13 @@ class Slider extends Component {
     }
 
     componentDidMount() {
-        window.addEventListener('resize', this.adjustHeight)
-        window.addEventListener('resize', this.resetValues)
-        window.addEventListener('dragleave', this.nextSlide)
-        window.addEventListener('keydown', this.keyRight)
-        window.addEventListener('keydown', this.keyLeft)
+        this.windowListeners(
+            sliderPayload, 
+            this.adjustHeight, 
+            this.resetValues, 
+            this.nextSlide, 
+            this.keyRight, 
+            this.keyLeft)
      
     }
 
@@ -42,10 +46,7 @@ class Slider extends Component {
     }
     nextSlide = () => {
         if(this.state.currentIndex === this.state.images.length -1) { //<--- returns to beginning of slide if at last slide
-            return this.setState({
-                currentIndex: 0,
-                translateValue: 0, 
-            })
+            return this.resetValues()
         }
         this.setState(prevState => ({
             currentIndex: prevState.currentIndex + 1,
@@ -82,12 +83,12 @@ class Slider extends Component {
     }
     //key listeners
     keyRight = (e) => {
-        if(e.keyCode == 39) {
+        if(e.keyCode === 39) {
             return this.nextSlide()
         }
     }
     keyLeft = (e) => {
-        if(e.keyCode == 37) {
+        if(e.keyCode === 37) {
             return this.prevSlide()
         }
     }
@@ -95,7 +96,7 @@ class Slider extends Component {
         const pictureWrap = () => {
             if(  this.state.width < this.state.height) {
                 return '95%'
-            } else  if (this.state.width < 1000) {
+            } else if (this.state.width < 1000) {
                 return '80%'
             } else {
                 return "60%"
@@ -103,7 +104,7 @@ class Slider extends Component {
         }
         return (
             <div className= "slider">
-            <SlideShow startSlideShow = {this.startSlideShow} stopSlideShow = {this.stopSlideShow}/>
+                <SlideShow startSlideShow = {this.startSlideShow} stopSlideShow = {this.stopSlideShow}/>
             <div className = 'slider-wrapper' style = {{
                 transform: `translateX(${this.state.translateValue}px)`, //<--- moves div to right by calculating previous width.
                 transition: 'transform ease-out 0.45s' }} >
@@ -113,7 +114,7 @@ class Slider extends Component {
                 )
             })}
             </div>
-            <LeftArrow prevSlide = { this.prevSlide } />
+                 <LeftArrow prevSlide = { this.prevSlide } />
             {this.state.images.map((el, i) => {
                 return (
                     <Dots key = {i} index = {i} currentIndex = {this.state.currentIndex} resetValues = {this.resetValues} />

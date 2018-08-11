@@ -22,3 +22,6 @@ yarn-error.log*
 /src/Components/SliderComponents/images
 *.JPG
 /public/images
+.vscode
+server/db
+/server/db

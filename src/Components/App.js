@@ -3,6 +3,7 @@ import '../StyleSheets/App.css';
 import Slider from './Slider'
 import '../StyleSheets/App.css'
 import $ from 'jquery';
+import {windowListeners} from './Actions/Actions'
 
 class App extends Component {
   state = {
@@ -13,7 +14,7 @@ class App extends Component {
 
   }
   componentDidMount(){
-    window.addEventListener('resize', this.adjustHeight)
+    windowListeners({a: 'resize'}, this.adjustHeight)
     console.log(this.state.windowHeight)
   }
   adjustHeight = () =>{
