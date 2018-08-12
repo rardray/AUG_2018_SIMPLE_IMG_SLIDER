@@ -3,7 +3,17 @@ import '../StyleSheets/App.css';
 import Slider from './Slider'
 import '../StyleSheets/App.css'
 import $ from 'jquery';
-import {windowListeners} from './Actions/Actions'
+import {windowListeners} from './Actions/Actions';
+import {
+  BrowserRouter as Router,
+  Route,
+  NavLink,
+  withRouter
+} from 'react-router-dom';
+import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
+import { CookiesProvider } from 'react-cookie';
+import Login from './Login'
 
 class App extends Component {
   state = {
@@ -23,10 +33,11 @@ class App extends Component {
   render() {
     return (
       <div className = 'App' style = {{minHeight: this.state.windowHeight}}>
-       <Slider/>
+       <Route exact path = '/login' component = {Login} />
+       <Route exact path = '/slider' component = {Slider} />
        </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
