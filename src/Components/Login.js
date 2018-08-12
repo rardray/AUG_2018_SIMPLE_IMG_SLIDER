@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Input from './Input'
+
+
 class Login extends Component {
     state = {
         email: '',
@@ -18,7 +20,7 @@ class Login extends Component {
                                         <div className = 'messages'>
                                         </div>
                                     </div>
-                                   <Input/>
+                                   <Input loginUser = {this.props.loginUser}/>
                                 </div>
                             </div>
                         </div>

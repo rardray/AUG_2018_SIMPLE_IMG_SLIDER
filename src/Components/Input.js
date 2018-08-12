@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 
+const API_URL = 'localhost:3001'
+const url = 'login'
+const payload = (data) => {
+    return {user: data}
+}
 class Input extends Component {
     constructor(props) {
         super(props)
-        this.state = {author: '', message: ''}
+        this.state = {email: '', password: ''}
     }
+   
     handleChange = (e) => {
         const target = e.target
         const value = target.value
@@ -16,31 +22,31 @@ class Input extends Component {
     }
 
     handleSubmit = e => {
-        if(!this.state.author || !this.state.message) {
+        if(!this.state.email || !this.state.password) {
             return
         }
         e.preventDefault()
-        const { author, message } = this.state
-        this.props.handleComment(author, message)
+        const { email, password } = this.state
+        this.props.loginUser(this.state, url, payload)
         this.setState({message: ''})
     }
     render() {
         return (
             <div className = 'card-footer'>
                 <input 
-                    name = 'author' 
+                    name = 'email' 
                     type = 'text' 
-                    placeholder = 'author' 
+                    placeholder = 'email' 
                     className= 'form-control' 
-                    value = {this.state.author} 
+                    value = {this.state.email} 
                     onChange = {this.handleChange}/>
                     <br/>
                 <input 
-                    name = 'message' 
-                    value = {this.state.message} 
+                    name = 'password' 
+                    value = {this.state.password} 
                     onChange = {this.handleChange} 
-                    type = 'text' 
-                    placeholder = 'message' 
+                    type = 'password' 
+                    placeholder = 'password' 
                     className = 'form-control'/>
                     <br/>
                 <button onClick = {this.handleSubmit} className = 'btn btn-primary form-control'>Send</button>
