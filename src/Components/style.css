@@ -71,6 +71,7 @@ html, body, .app, .main {
           display: inline-block;
           vertical-align: middle;
           margin: 10px;
+          font-size: .001px
       }
       .hdots {
         height: 12px;
@@ -83,6 +84,7 @@ html, body, .app, .main {
         animation-name: dot-animation;
         animation-duration: .3s;
         animation-iteration-count: 1;
+        font-size: .001px
     }
 
     .slideshow {

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-const url = 'login'
+const url = 'register'
 const payload = (data) => {
     return {user: data}
 }
-class Input extends Component {
+class RegisterInput extends Component {
     constructor(props) {
         super(props)
-        this.state = {email: '', password: ''}
+        this.state = {firstName: '', lastName: '', email: '', password: ''}
     }
    
     handleChange = (e) => {
@@ -25,12 +25,27 @@ class Input extends Component {
             return
         }
         e.preventDefault()
-        const { email, password } = this.state
         this.props.loginUser(this.state, url, payload)
     }
     render() {
         return (
             <div className = 'card-footer'>
+                <input 
+                    name = 'firstName' 
+                    type = 'text' 
+                    placeholder = 'First Name' 
+                    className= 'form-control' 
+                    value = {this.state.firstName} 
+                    onChange = {this.handleChange}/>
+                    <br/>
+                <input 
+                    name = 'lastName' 
+                    value = {this.state.lastName} 
+                    onChange = {this.handleChange} 
+                    type = 'text' 
+                    placeholder = 'Last Name' 
+                    className = 'form-control'/>
+                    <br/>
                 <input 
                     name = 'email' 
                     type = 'text' 
@@ -52,4 +67,4 @@ class Input extends Component {
         )
     }
 }
-export default Input
+export default RegisterInput

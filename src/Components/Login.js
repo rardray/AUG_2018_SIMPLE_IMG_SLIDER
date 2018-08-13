@@ -3,24 +3,22 @@ import Input from './Input'
 
 
 class Login extends Component {
-    state = {
-        email: '',
-        password: '',
-    }
-        
+ 
     render() {
+       const {title} = this.props
         return (
-            <div className = 'containter'>
-                <div className = 'row'>
-                    <div className = 'col-4'>
+            
+            <div className = 'containter' style = {{ justifyContent: 'center', textAlign: 'center', display: 'inline-block', width: '100%', position: 'fixed', left:'35%', right: '20%', top: '20%'}}>
+                <div className = 'row' >
+                    <div className = 'col-4' >
                         <div className = 'card' >
                             <div className = 'card-body'>
-                                <div className = 'card-title'>Login</div>
+                                <div className = 'card-title'>{title}</div>
                                     <hr/>
                                         <div className = 'messages'>
                                         </div>
                                     </div>
-                                   <Input loginUser = {this.props.loginUser}/>
+                                   {this.props.children}
                                 </div>
                             </div>
                         </div>
