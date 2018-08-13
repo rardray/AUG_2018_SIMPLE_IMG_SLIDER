@@ -8,7 +8,18 @@ class Login extends Component {
        const {title} = this.props
         return (
             
-            <div className = 'containter' style = {{ justifyContent: 'center', textAlign: 'center', display: 'inline-block', width: '100%', position: 'fixed', left:'35%', right: '20%', top: '20%'}}>
+            <div className = 'containter' 
+                    style = {{ 
+                        justifyContent: 'center', 
+                        textAlign: 'center', 
+                        display: 'inline-block', 
+                        width: '100%', 
+                        position: 'fixed', 
+                        left:'35%', 
+                        right: '20%', 
+                        top: '20%',
+                        
+                        }}>
                 <div className = 'row' >
                     <div className = 'col-4' >
                         <div className = 'card' >

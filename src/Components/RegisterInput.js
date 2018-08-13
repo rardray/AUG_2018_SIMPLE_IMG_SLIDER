@@ -17,7 +17,6 @@ class RegisterInput extends Component {
         this.setState({
             [name]:  value
         })
-        console.log(this.state)
     }
 
     handleSubmit = e => {

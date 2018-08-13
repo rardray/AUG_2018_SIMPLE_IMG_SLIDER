@@ -36,7 +36,6 @@ export function loginUser(data, url, value){
         resData = response.data.user 
         this.setState(value(resData))
         this.props.history.push('/dashboard')
-        console.log(resData)
       
     })
     

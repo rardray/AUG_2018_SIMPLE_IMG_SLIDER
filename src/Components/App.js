@@ -45,8 +45,15 @@ class App extends Component {
   render() {
     return (
       <div className = 'App' style = {{minHeight: this.state.windowHeight}}>
-       <Route exact path = '/login' render = {(props) => <Login {...props} title = 'Login'><Input {...props} loginUser = {this.loginUser}/><SignUp history = {this.props.history}/> </Login>} />
-       <Route exact path = '/register' render = {(props) => <Login {...props} title = 'Register'><RegisterInput {...props} loginUser = {this.loginUser}/> </Login>} />
+       <Route exact path = '/login' render = {(props) => 
+          <Login {...props} title = 'Login'>
+          <Input {...props} loginUser = {this.loginUser}/>
+          <SignUp history = {this.props.history}/> 
+          </Login>} />
+       <Route exact path = '/register' render = {(props) => 
+          <Login {...props} title = 'Register'>
+          <RegisterInput {...props} loginUser = {this.loginUser}/> 
+          </Login>} />
        <Route exact path = '/slider' component = {Slider} />
        </div>
     );
