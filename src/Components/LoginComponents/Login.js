@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Input from './Input'
 import $ from 'jquery'
 const width = () => {
     if($(window).height()>$(window).width()) {

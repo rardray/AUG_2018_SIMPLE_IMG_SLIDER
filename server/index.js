@@ -42,5 +42,5 @@ app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Credentials', 'true')
     next()
 })
-
+app.listen(3001, '192.168.0.7')
 router(app) //<--- run router

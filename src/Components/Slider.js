@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Slide from './SliderComponents/Slide'
 import RightArrow from './SliderComponents/RightArrow';
 import LeftArrow from './SliderComponents/LeftArrow';
-import './style.css'
+import '../StyleSheets/style.css'
 import $ from 'jquery'
 import Dots from './SliderComponents/Dots'
 import SlideShow from './SlideShow'
@@ -12,7 +12,7 @@ class Slider extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            images: ['http://localhost:3001/public/images/DSC_0025.JPG' , 'DSC_0026', 'DSC_0124', 'DSC_0131', 'DSC_0130', 'DSC_0129', 'DSC_0128', 'DSC_0105'],
+            images: ['http://192.168.0.7:3001/public/images/DSC_0025.JPG' , 'http://192.168.0.7:3001/public/images/DSC_0026.JPG', 'DSC_0124', 'DSC_0131', 'DSC_0130', 'DSC_0129', 'DSC_0128', 'DSC_0105'],
             currentIndex: 0,
             translateValue: 0,
             width: '',

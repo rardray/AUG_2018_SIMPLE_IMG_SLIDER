@@ -1,5 +1,5 @@
 import React from 'react'
-import '../StyleSheets/App.css'
+import '../../StyleSheets/App.css'
 
 const Logout = (props) => {
    const { cookies, clearInfo } = props

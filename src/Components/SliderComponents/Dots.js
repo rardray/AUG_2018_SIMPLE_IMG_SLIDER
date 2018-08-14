@@ -1,5 +1,5 @@
 import React from 'react';
-import '../style.css';
+import '../../StyleSheets/style.css';
 
 const Dots = (props) => {
     const {index, currentIndex, resetValues } = props

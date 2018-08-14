@@ -1,5 +1,5 @@
 import React from 'react';
-import '../style.css'
+import '../../StyleSheets/style.css'
 
 const RightArrow = (props) => {
     return (

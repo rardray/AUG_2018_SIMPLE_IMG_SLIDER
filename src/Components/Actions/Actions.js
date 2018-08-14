@@ -1,8 +1,4 @@
 import axios from 'axios';
-import { instanceOf } from 'prop-types';
-import { withCookies, Cookies } from 'react-cookie';
-import { CookiesProvider } from 'react-cookie';
-import $ from 'jquery'
 
 export const sliderPayload = {
     a: 'resize',
@@ -12,8 +8,7 @@ export const sliderPayload = {
     e: 'keydown',
 }
 
-const API_URL = 'http://localhost:3001'
-const url = 'login'
+const API_URL = 'http://192.168.0.7:3001'
 
 
 export function windowListeners(payload, a, b, c, d, e) {

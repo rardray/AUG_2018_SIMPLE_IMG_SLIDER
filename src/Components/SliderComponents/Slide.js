@@ -1,6 +1,5 @@
 import React from 'react';
-import '../style.css'
-import $ from 'jquery'
+import '../../StyleSheets/style.css'
 
 
 const Slide = (  props ) => {
@@ -12,7 +11,8 @@ const Slide = (  props ) => {
         justifyContent: 'center'
     }
     return (
-        <div className =  'slide' style = {styles} >
+        <div className =  'slide' 
+            style = {styles} >
         <img style = 
             {{ width: props.flex, 
             height: 'auto', 
@@ -20,7 +20,8 @@ const Slide = (  props ) => {
             padding: 20, 
             borderRadius: 50, 
             verticalAlign: 'center', 
-            margin: 'auto'}} src={props.image} />
+            margin: 'auto'}} src={props.image}
+            alt = {props.image} />
         </div>
     )
 }
