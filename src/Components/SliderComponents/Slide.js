@@ -20,7 +20,7 @@ const Slide = (  props ) => {
             padding: 20, 
             borderRadius: 50, 
             verticalAlign: 'center', 
-            margin: 'auto'}} src={require('./images/' + props.image + '.JPG')} />
+            margin: 'auto'}} src={props.image} />
         </div>
     )
 }

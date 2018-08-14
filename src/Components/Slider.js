@@ -12,7 +12,7 @@ class Slider extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            images: ['DSC_0119', 'DSC_0026', 'DSC_0124', 'DSC_0131', 'DSC_0130', 'DSC_0129', 'DSC_0128', 'DSC_0105'],
+            images: ['http://localhost:3001/public/images/DSC_0025.JPG' , 'DSC_0026', 'DSC_0124', 'DSC_0131', 'DSC_0130', 'DSC_0129', 'DSC_0128', 'DSC_0105'],
             currentIndex: 0,
             translateValue: 0,
             width: '',

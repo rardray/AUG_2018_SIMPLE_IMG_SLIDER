@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 const url = 'login'
 const payload = (data) => {
-    return {user: data}
+    return {authorized: true, user: data}
 }
 class Input extends Component {
     constructor(props) {
@@ -24,7 +24,6 @@ class Input extends Component {
             return
         }
         e.preventDefault()
-        const { email, password } = this.state
         this.props.loginUser(this.state, url, payload)
     }
     render() {
@@ -46,7 +45,7 @@ class Input extends Component {
                     placeholder = 'password' 
                     className = 'form-control'/>
                     <br/>
-                <button onClick = {this.handleSubmit} className = 'btn btn-primary form-control'>Send</button>
+                <button onClick = {this.handleSubmit} className = 'btn btn-primary form-control'>Login</button>
             </div>
         )
     }

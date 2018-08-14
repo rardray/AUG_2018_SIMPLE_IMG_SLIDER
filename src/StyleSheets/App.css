@@ -5,3 +5,21 @@
   width: 100%;
   
 }
+
+.nav-bar {
+  height: 50px;
+  background-color: royalblue;
+  display: block;
+  position: sticky;
+  top: 0px;
+  z-index: 1;
+  text-align: center;
+}
+
+.nav-link {
+  color: white;
+  display: inline-block;
+  vertical-align: center;
+  margin: 10px;
+  cursor: pointer;
+}

@@ -1,9 +1,20 @@
 import React, {Component} from 'react';
 import Input from './Input'
-
+import $ from 'jquery'
+const width = () => {
+    if($(window).height()>$(window).width()) {
+        return '275%'
+    }
+    return '100%'
+}
+const position = () => {
+    if($(window).height() > $(window).width()){
+        return '6%'
+    }
+    return '35%'
+}
 
 class Login extends Component {
- 
     render() {
        const {title} = this.props
         return (
@@ -13,9 +24,9 @@ class Login extends Component {
                         justifyContent: 'center', 
                         textAlign: 'center', 
                         display: 'inline-block', 
-                        width: '100%', 
+                        width: width(), 
                         position: 'fixed', 
-                        left:'35%', 
+                        left: position(), 
                         right: '20%', 
                         top: '20%',
                         
