@@ -5,6 +5,7 @@ import RegisterInput from './RegisterInput';
 import SignUp from './SignUp';
 import Login from './LoginComponents/Login';
 import Slider from './Slider'
+import Upload from './upload'
 
 const Routes = (props) => {
     const { loginUser, history } = props
@@ -20,6 +21,7 @@ const Routes = (props) => {
             <RegisterInput {...props} loginUser = {loginUser}/> 
             </Login>} />
          <Route exact path = '/slider' component = {Slider} />
+         <Route exact path = '/upload' component = {Upload} />
          </div>
     )
 }

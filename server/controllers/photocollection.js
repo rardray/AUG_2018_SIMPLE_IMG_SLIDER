@@ -14,3 +14,20 @@ exports.getPhotoCollection = (function(req, res, next){
         res.json(photocollection)
     })
 })
+
+exports.postPhotoCollection = (function(req, res, next) {
+    const collectionId = req.params.id
+    const collectionTitle = req.body.title
+    const photos = req.body.photos
+    let photocollection = new PhotoCollection({
+        collectionId: collectionId,
+        collectionTitle: collectionTitle,
+        photos: photos
+    })
+    photocollection.save(function(err, photocollection){
+        if (err) {
+            return next(err)
+        }
+        res.status(201).json({_id: photocollection._id})
+    })
+})

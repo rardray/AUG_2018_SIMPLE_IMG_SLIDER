@@ -2,6 +2,7 @@ import React from 'react';
 import '../StyleSheets/App.css'
 import { NavLink, withRouter } from 'react-router-dom';
   import Logout from './LoginComponents/Logout'
+  
 
 const NavBar = (props) => {
     const {authorized, cookies, clearInfo, firstName, lastName } = props

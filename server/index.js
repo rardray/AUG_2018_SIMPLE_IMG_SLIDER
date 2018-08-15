@@ -5,6 +5,7 @@ const express = require('express'),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser')
 const router = require('./router')
+const cors = require('cors')
 var fileUpload = require('express-fileupload');
 const server = app.listen(config.port)
 console.log('Server running on ' + config.port)
@@ -19,17 +20,17 @@ app.use(logger('dev'))
 app.use(bodyParser.urlencoded({extended : false}))
 app.use(bodyParser.json())
 
-
+app.use(cors())
 app.post('/upload', (req, res, next) => {
     console.log(req);
     var imageFile = req.files.file;
   
-    imageFile.mv(`${__dirname}/public/images/${req.body.filename}.jpg`, function(err) {
+    imageFile.mv(`${__dirname}/public/images/${req.body.filename}`, function(err) {
       if (err) {
         return res.status(500).send(err);
       }
   
-      res.json({file: `/public/${req.body.filename}.jpg`});
+      res.json( `http://192.168.0.7:3001/public/images/${req.body.filename}`);
     });
   
   })
