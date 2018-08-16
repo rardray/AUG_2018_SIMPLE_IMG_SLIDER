@@ -20,7 +20,7 @@ const Routes = (props) => {
             <Login {...props} title = 'Register'>
             <RegisterInput {...props} loginUser = {loginUser}/> 
             </Login>} />
-         <Route exact path = '/slider' component = {Slider} />
+         <Route exact path = '/album/:id' component = {Slider} />
          <Route exact path = '/upload' component = {Upload} />
          </div>
     )

@@ -21,7 +21,9 @@ const AuthenticationController = require('./controllers/authentication'),
         authRoutes.post('/login', requireLogin, AuthenticationController.login) //<---- calls login function from authentication and passport
 
         apiRoutes.use('/albums', albumRoutes )
+        albumRoutes.get('/one/:id', requireAuth, albums.getAlbum)
         albumRoutes.get('/:collectionId', requireAuth, albums.getPhotoCollection)
+        albumRoutes.post('/', requireAuth, albums.postPhotoCollection )
         app.use('/', apiRoutes)
 
         

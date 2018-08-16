@@ -3,7 +3,7 @@ const mongoose = require('mongoose'),
 
 
 const PhotoCollection = new Schema({
-    collectionID: {type: Schema.Types.ObjectId, ref: 'User' },
+    collectionId: {type: Schema.Types.ObjectId, ref: 'User' },
     collectionTitle: {type: String},
     photos: [{type: String}]
 },

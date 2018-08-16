@@ -15,8 +15,19 @@ exports.getPhotoCollection = (function(req, res, next){
     })
 })
 
+exports.getAlbum = (function(req, res, next) {
+    PhotoCollection.findOne({'_id' : req.params.id}, function(err, album){
+        if (err) {
+            res.send({error: err})
+            return next(err)
+        }
+        res.json(album)
+        console.log(album)
+    })
+})
+
 exports.postPhotoCollection = (function(req, res, next) {
-    const collectionId = req.params.id
+    const collectionId = req.body.collectionId
     const collectionTitle = req.body.title
     const photos = req.body.photos
     let photocollection = new PhotoCollection({
@@ -28,6 +39,7 @@ exports.postPhotoCollection = (function(req, res, next) {
         if (err) {
             return next(err)
         }
-        res.status(201).json({_id: photocollection._id})
+        res.status(201).json(photocollection._id)
+        console.log(photocollection._id)
     })
 })

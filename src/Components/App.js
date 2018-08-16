@@ -31,6 +31,7 @@ class App extends Component {
       this.props.history.push('/login')
     }
     windowListeners({a: 'resize'}, this.adjustHeight)
+    console.log(this.state.user._id)
   }
   
   adjustHeight = () =>{

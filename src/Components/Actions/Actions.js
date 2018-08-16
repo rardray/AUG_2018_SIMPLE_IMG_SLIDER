@@ -8,7 +8,7 @@ export const sliderPayload = {
     e: 'keydown',
 }
 
-const API_URL = 'http://192.168.0.7:3001'
+const API_URL = 'http://192.168.0.3:3001'
 
 
 export function windowListeners(payload, a, b, c, d, e) {

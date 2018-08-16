@@ -7,12 +7,19 @@ import $ from 'jquery'
 import Dots from './SliderComponents/Dots'
 import SlideShow from './SlideShow'
 import {windowListeners, sliderPayload } from './Actions/Actions';
+import axios from 'axios';
+import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
 
 class Slider extends Component {
-    constructor(props) {
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+      }
+      constructor(props) {
         super(props)
+        const { cookies } = props
         this.state = {
-            images: ['http://192.168.0.7:3001/public/images/DSC_0025.JPG' , 'http://192.168.0.7:3001/public/images/DSC_0026.JPG', 'DSC_0124', 'DSC_0131', 'DSC_0130', 'DSC_0129', 'DSC_0128', 'DSC_0105'],
+            images: [],
             currentIndex: 0,
             translateValue: 0,
             width: '',
@@ -27,6 +34,14 @@ class Slider extends Component {
     }
 
     componentDidMount() {
+        const { cookies } = this.props
+        const id = this.props.match.params.id
+        axios.get('http://192.168.0.3:3001/albums/one/' + id, {
+            headers: {Authorization: cookies.get('token')}
+        }).then(res => {
+            const data = res.data
+            this.setState({images: data.photos})
+        })
         this.windowListeners(
             sliderPayload, 
             this.adjustHeight, 
@@ -127,4 +142,4 @@ class Slider extends Component {
     }
 }
 
-export default Slider
+export default withCookies(Slider)

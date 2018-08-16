@@ -30,7 +30,7 @@ app.post('/upload', (req, res, next) => {
         return res.status(500).send(err);
       }
   
-      res.json( `http://192.168.0.7:3001/public/images/${req.body.filename}`);
+      res.json( `http://192.168.0.3:3001/public/images/${req.body.filename}`);
     });
   
   })
@@ -43,5 +43,5 @@ app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Credentials', 'true')
     next()
 })
-app.listen(3001, '192.168.0.7')
+app.listen(3001, '192.168.0.3')
 router(app) //<--- run router
