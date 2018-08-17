@@ -6,6 +6,10 @@ const User = require('../models/user')
 exports.getPhotoCollection = (function(req, res, next){
     PhotoCollection.find({collectionId: req.params.collectionId})
     .sort('-createdAt')
+    .populate({
+        path: 'collectionId',
+        select: 'profile.firstName profile.lastName'
+    })
     .exec(function(err, photocollection) {
         if(err) {
             res.send({error: err})
@@ -16,7 +20,12 @@ exports.getPhotoCollection = (function(req, res, next){
 })
 
 exports.getAlbum = (function(req, res, next) {
-    PhotoCollection.findOne({'_id' : req.params.id}, function(err, album){
+    PhotoCollection.findOne({'_id' : req.params.id})
+    .populate({
+        path: 'collectionId',
+        select: 'profile.firstName profile.lastName'
+    })
+    .exec(function(err, album){
         if (err) {
             res.send({error: err})
             return next(err)

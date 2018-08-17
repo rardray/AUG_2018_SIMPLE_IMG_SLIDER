@@ -11,7 +11,7 @@ const server = app.listen(config.port)
 console.log('Server running on ' + config.port)
 
 mongoose.connect(config.database)
-
+const API_URL = 'http://192.168.0.3:3001'
 app.use(fileUpload());
 app.use('/public', express.static(__dirname + '/public'));
 
@@ -30,7 +30,7 @@ app.post('/upload', (req, res, next) => {
         return res.status(500).send(err);
       }
   
-      res.json( `http://192.168.0.3:3001/public/images/${req.body.filename}`);
+      res.json( `${API_URL}/public/images/${req.body.filename}`);
     });
   
   })

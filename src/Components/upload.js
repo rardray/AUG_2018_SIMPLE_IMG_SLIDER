@@ -5,7 +5,7 @@ import ImagePreview from './imagePreview'
 import '../StyleSheets/style.css'
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
-import { userInfo } from 'os';
+import {API_URL,  albumPush, postRequests, abPostPayload, postAlbums} from './Actions/Actions'
 
 class Upload  extends Component {
     static propTypes = {
@@ -18,16 +18,16 @@ class Upload  extends Component {
             photos: [],
             title: ''
     }
+    this.postRequests = postRequests.bind(this)
+    this.albumPush = albumPush.bind(this)
 }
 
     handleDrop = files => {
-        console.log('clicked')
-        console.log(this.state.photos)
         const uploaders = files.map(file => {
             const formData = new FormData()
             formData.append('file', file)
             formData.append("filename", file.name)
-            return axios.post('http://192.168.0.3:3001/upload', formData, {
+            return axios.post(`${API_URL}/upload`, formData, {
                 headers: { "X-Requested-With": "XMLHttpRequest" },
             }).then(res =>   {
                 const data = res.data
@@ -44,28 +44,32 @@ class Upload  extends Component {
     saveAlbum = (e) => {
         e.preventDefault()
         const {cookies} = this.props
+        const token = cookies.get('token')
         const value = cookies.get('user')
         const { _id } = value
-        const {photos, title } = this.state
-        const JWT = cookies.get('token')
-        axios.post('http://192.168.0.3:3001/albums', {collectionId: _id, title: title, photos: photos}, {
-            headers: { Authorization: cookies.get('token') }
-        }  ).then(res => {
-            const id = res.data
-            this.props.history.push('/album/' + id)
-        })
+        this.postRequests(postAlbums, abPostPayload(this.state, _id), token, this.albumPush )
     }
 
     handleChange = e => {
         this.setState({title: e.target.value})
     }
-
+    discardAlbum = e => {
+        e.preventDefault()
+        this.props.history.push('/dashboard')
+    }
 
 render() {
     const { photos } = this.state
     return (
         <div style= {{textAlign: 'center', justifyContent: 'center', display: 'inline-block', width: '100%'}}>
-            <input name = 'title' placeholder = 'enter name for phot album' value = {this.state.title} onChange = {this.handleChange.bind(this)} />
+            <input 
+                className = 'form-control' 
+                style = {{maxWidth: '40%', display: 'inline-block'}}
+                name = 'title' 
+                placeholder = 'enter name for photo album' 
+                value = {this.state.title} 
+                onChange = {this.handleChange.bind(this)} />
+            <br/>
             <Dropzone
                 className = 'drop-zone'
                 onDrop ={this.handleDrop}
@@ -81,7 +85,7 @@ render() {
                 })}
                 
                 </Dropzone><br/>
-                {photos.length > 0 ? <div><button onClick = {this.saveAlbum} >Save Album</button> <button>Discard</button></div> : null}
+                {photos.length > 0 ? <div><button onClick = {this.saveAlbum} >Save Album</button> <button onClick = {this.discardAlbum}>Discard</button></div> : null}
         </div>
 
     )

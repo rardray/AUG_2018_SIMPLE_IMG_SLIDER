@@ -6,10 +6,11 @@ import '../StyleSheets/style.css'
 import $ from 'jquery'
 import Dots from './SliderComponents/Dots'
 import SlideShow from './SlideShow'
-import {windowListeners, sliderPayload } from './Actions/Actions';
+import {windowListeners, sliderPayload, actionPayload, getRequests, getAlbums, albumsPayload } from './Actions/Actions';
 import axios from 'axios';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
+import {API_URL} from './Actions/Actions'
 
 class Slider extends Component {
     static propTypes = {
@@ -27,6 +28,7 @@ class Slider extends Component {
     }
         this.setSlideshow = ''
         this.windowListeners = windowListeners.bind(this)
+        this.getRequests = getRequests.bind(this)
 }
    
     componentWillMount() {
@@ -36,24 +38,30 @@ class Slider extends Component {
     componentDidMount() {
         const { cookies } = this.props
         const id = this.props.match.params.id
-        axios.get('http://192.168.0.3:3001/albums/one/' + id, {
-            headers: {Authorization: cookies.get('token')}
-        }).then(res => {
-            const data = res.data
-            this.setState({images: data.photos})
-        })
+        this.getRequests(getAlbums(id), albumsPayload, cookies.get('token'))
+   
         this.windowListeners(
-            sliderPayload, 
+            sliderPayload, actionPayload(
             this.adjustHeight, 
             this.resetValues, 
             this.nextSlide, 
             this.keyRight, 
-            this.keyLeft)
+            this.keyLeft),
+            window.addEventListener)
      
     }
 
     componentWillUnmount() {
         this.stopSlideShow()
+        this.windowListeners(
+            sliderPayload,
+            actionPayload(
+            this.adjustHeight, 
+            this.resetValues, 
+            this.nextSlide, 
+            this.keyRight, 
+            this.keyLeft),
+            window.removeEventListener)
     }
 
     adjustHeight = () => {
@@ -110,11 +118,11 @@ class Slider extends Component {
     render() {
         const pictureWrap = () => {
             if(  this.state.width < this.state.height) {
-                return '95%'
-            } else if (this.state.width < 1000) {
-                return '80%'
+                return {height: 'auto',
+                        width: '100%'}
             } else {
-                return "60%"
+                return {height: $(window).height() * .8,
+                        width: 'auto'}
             }
         }
         return (

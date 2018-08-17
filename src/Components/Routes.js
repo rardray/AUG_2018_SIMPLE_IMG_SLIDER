@@ -6,9 +6,10 @@ import SignUp from './SignUp';
 import Login from './LoginComponents/Login';
 import Slider from './Slider'
 import Upload from './upload'
+import Dashboard from './Dashboard'
 
 const Routes = (props) => {
-    const { loginUser, history } = props
+    const { loginUser, history, token, user } = props
     return (
         <div>
         <Route exact path = '/login' render = {(props) => 
@@ -22,6 +23,7 @@ const Routes = (props) => {
             </Login>} />
          <Route exact path = '/album/:id' component = {Slider} />
          <Route exact path = '/upload' component = {Upload} />
+         <Route exact path = '/dashboard' render = {(props) => <Dashboard {...props} token = {token} user = {user}/>} />
          </div>
     )
 }

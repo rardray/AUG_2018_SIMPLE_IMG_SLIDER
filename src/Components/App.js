@@ -43,6 +43,7 @@ class App extends Component {
     this.props.history.push('/login')
   }
   render() {
+    const {cookies} = this.props
     return (
       <div>
         <NavBar 
@@ -52,7 +53,7 @@ class App extends Component {
           clearInfo = {this.clearInfo} 
           cookies = {this.props.cookies}/>
       <div className = 'App' style = {{minHeight: this.state.windowHeight}}>
-      <Routes loginUser = {this.loginUser} history = {this.props.history} />
+      <Routes token = {cookies.get('token')} user = {this.state.user} loginUser = {this.loginUser} history = {this.props.history} />
        </div>
        </div>
     );
