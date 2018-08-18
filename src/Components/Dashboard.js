@@ -28,6 +28,7 @@ class Dashboard extends Component {
     selectAlbum = (id, e) => {
         e.preventDefault()
         this.props.history.push(`/album/${id}`)
+        console.log(this.state.albums)
     }
     scrollAlbumRight = () => {
         const { index, albums } = this.state

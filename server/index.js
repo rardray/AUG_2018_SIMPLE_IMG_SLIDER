@@ -27,7 +27,7 @@ app.post('/upload', (req, res, next) => {
   
     imageFile.mv(`${__dirname}/public/images/${req.body.filename}`, function(err) {
       if (err) {
-        return res.status(500).send(err);
+        return res.status(500).send({error: err});
       }
   
       res.json( `/${req.body.filename}`);

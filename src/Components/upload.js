@@ -5,8 +5,8 @@ import ImagePreview from './imagePreview'
 import '../StyleSheets/style.css'
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
-import {API_URL, PHOTO_URL, albumPush, postRequests, abPostPayload, postAlbums} from './Actions/Actions'
-
+import {API_URL, PHOTO_URL, albumPush, postRequests, abPostPayload, postAlbums, UPLOAD, imageHeader, setImageState} from './Actions/Actions'
+import ImageCompressor from 'image-compressor.js'
 class Upload  extends Component {
     static propTypes = {
         cookies: instanceOf(Cookies).isRequired
@@ -20,26 +20,54 @@ class Upload  extends Component {
     }
     this.postRequests = postRequests.bind(this)
     this.albumPush = albumPush.bind(this)
+    this.setImageState = setImageState.bind(this)
 }
+/*mport axios from 'axios';
+import ImageCompressor from 'image-compressor.js';
 
+document.getElementById('file').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+
+  if (!file) {
+    return;
+  }
+
+  new ImageCompressor(file, {
+    quality: .6,
+    success(result) {
+      const formData = new FormData();
+
+      formData.append('file', result, result.name);
+
+      // Send the compressed image file to server with XMLHttpRequest.
+      axios.post('/path/to/upload', formData).then(() => {
+        console.log('Upload success');
+      });
+    },
+    error(e) {
+      console.log(e.message);
+    },
+  });
+});*/
     handleDrop = files => {
         const uploaders = files.map(file => {
-            const formData = new FormData()
-            formData.append('file', file)
-            formData.append("filename", file.name)
-            return axios.post(`${API_URL}/upload`, formData, {
-                headers: { "X-Requested-With": "XMLHttpRequest" },
-            }).then(res =>   {
-                const data = res.data
-                const url = data.secure_url
-                console.log(data)
-                this.setState(prevState => {
-                    return {photos: [...prevState.photos, data]}
-                })
+            const postRequests = this.postRequests
+            const setImageState = this.setImageState
+        new ImageCompressor(file, {
+            quality: .5,
+            maxHeight: 1600,
+            maxWidth: 1600,
+            success(result) {
+                const formData = new FormData()
+                formData.append('file', result)
+                formData.append('filename', result.name)
+                return postRequests(UPLOAD, formData, imageHeader, setImageState)
+                }
             })
-
-        })
+        }
+    )
         axios.all(uploaders).then(() =>{})
+        console.log(this.state.photos)
     }
     saveAlbum = (e) => {
         e.preventDefault()
@@ -47,7 +75,7 @@ class Upload  extends Component {
         const token = cookies.get('token')
         const value = cookies.get('user')
         const { _id } = value
-        this.postRequests(postAlbums, abPostPayload(this.state, _id), token, this.albumPush )
+        this.postRequests(postAlbums, abPostPayload(this.state, _id), {Authorization: token}, this.albumPush )
     }
 
     handleChange = e => {

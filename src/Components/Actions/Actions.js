@@ -24,6 +24,7 @@ export function windowListeners(payload, payload2, listener) {
 //export const API_URL = 'http://192.168.0.3:3001'
 export const API_URL = 'http://localhost:3001'
 export const PHOTO_URL = '/public/images'
+export const UPLOAD = '/upload'
 
 export function getAlbums(id) {
     return '/albums/one/' + id }
@@ -32,7 +33,8 @@ export function listAlbums(id) {
     return '/albums/' + id
 }
 export const postAlbums = '/albums'
-   
+//headers
+export const imageHeader = { "X-Requested-With": "XMLHttpRequest" }
 //post request payloads
 
 export const abPostPayload = (data, id) => {
@@ -49,6 +51,12 @@ export const albumListPayload = (value) => {
     return {
         albums: value
     }
+}
+export function setImageState(value) {
+    console.log(value)
+    this.setState(prevState => {
+        return {photos: [...prevState.photos, value]}
+    })
 }
 //push
 export function albumPush(value) {
@@ -106,14 +114,18 @@ export function getRequests(url, payload, token){
 export function postRequests(url, payload, header, action) {
     let data = {}
     axios.post(`${API_URL}${url}`, payload, {
-    headers: { Authorization: header }
+        headers: header
     }).then(res => {
     data = res.data
+    console.log(data)
     action(data)
+    
     console.log(data)
 })
 .catch(err => {
-    data = err.data
+    // let data = err.response.data
+     //let status = err.response.status
+     //errorHandler(data, status, this.props.history)
     console.log(data)
 })
 }
