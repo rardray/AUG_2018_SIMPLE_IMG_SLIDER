@@ -6,7 +6,7 @@ import '../StyleSheets/style.css'
 import $ from 'jquery'
 import Dots from './SliderComponents/Dots'
 import SlideShow from './SlideShow'
-import {windowListeners, sliderPayload, actionPayload, getRequests, getAlbums, albumsPayload } from './Actions/Actions';
+import {windowListeners, sliderPayload, actionPayload, getRequests, getAlbums, albumsPayload, PHOTO_URL } from './Actions/Actions';
 import axios from 'axios';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
@@ -133,7 +133,7 @@ class Slider extends Component {
                 transition: 'transform ease-out 0.45s' }} >
             {this.state.images.map((el, i) => {
                 return (
-                    <Slide key = {i} image = {el} flex = {pictureWrap()} />
+                    <Slide key = {i} image = {`${API_URL}${PHOTO_URL}${el}`} flex = {pictureWrap()} />
                 )
             })}
             </div>

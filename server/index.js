@@ -30,10 +30,11 @@ app.post('/upload', (req, res, next) => {
         return res.status(500).send(err);
       }
   
-      res.json( `${API_URL}/public/images/${req.body.filename}`);
+      res.json( `/${req.body.filename}`);
     });
   
   })
+
 
 //cors
 app.use(function(req, res, next) {
@@ -43,5 +44,5 @@ app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Credentials', 'true')
     next()
 })
-app.listen(3001, '192.168.0.3')
+//app.listen(3001, '192.168.0.3')
 router(app) //<--- run router

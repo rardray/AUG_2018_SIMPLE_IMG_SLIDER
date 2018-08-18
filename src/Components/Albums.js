@@ -9,16 +9,17 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import '../StyleSheets/style.css'
 import $ from 'jquery'
+import {API_URL, PHOTO_URL } from './Actions/Actions'
 const styles = {
     card: {
       maxWidth: 345,
-      minWidth: 300,
-      margin: 10,
+      minWidth: 345,
+      margin: 0,
       display: 'inline-block',
     },
     media: {
       height: 0,
-      paddingTop: '56.25%', // 16:9
+      paddingTop: '45.25%', // 16:9
     },
   };
 
@@ -26,23 +27,23 @@ const styles = {
 
 const Albums = (props) => {
     const { classes } = props
-    return (<div   onClick = {props.handleClick} style= {{display: 'inline-block', padding: 10, verticalAlign: 'top', cursor: 'pointer'}}>
+    return (<div   onClick = {props.handleClick} style= {{display: 'inline-block', padding: 0, verticalAlign: 'top', cursor: 'pointer'}}>
         <Card className={classes.card}>
         <CardMedia
           className={classes.media}
-          image={props.photo[0]}
+          image={`${API_URL}${PHOTO_URL}${props.photo[0]}`}
           title={props.title}
         />
-           <div className = 'album-container' style = {{backgroundImage: `url(${props.photo[1]})`}} >
+           <div className = 'album-container' style = {{backgroundImage: `url(${API_URL}${PHOTO_URL}${props.photo[1]})`}} >
         </div>
-        <div className = 'album-container' style = {{backgroundImage: `url(${props.photo[2]})`}} >
+        <div className = 'album-container' style = {{backgroundImage: `url(${API_URL}${PHOTO_URL}${props.photo[2]})`}} >
         </div>
-        <CardContent style = {{margin: 0}}>
-        <Typography gutterBottom variant="headline" component="h2">
-            {props.title}
+        <div className = 'card-overlay'>
+        <Typography gutterBottom variant="headline" component="h2" style = {{color: 'white', backgroundColor: 'rgba(0,0,0,.6)', padding: 6, margin: 0}} >
+            "{props.title}"
           </Typography>
-          <Typography>{props.profile.firstName} {props.profile.lastName}</Typography>
-       </CardContent>
+          <Typography style = {{color: 'white', backgroundColor: 'rgba(0,0,0,.6)', paddingLeft: 6, margin: 0, fontFamily: 'serif', fontStyle: 'italic' }}>"by {props.profile.firstName} {props.profile.lastName}"</Typography>
+          </div>
       </Card>
     </div>)
 

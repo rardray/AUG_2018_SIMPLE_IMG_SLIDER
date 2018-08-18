@@ -5,7 +5,7 @@ import ImagePreview from './imagePreview'
 import '../StyleSheets/style.css'
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
-import {API_URL,  albumPush, postRequests, abPostPayload, postAlbums} from './Actions/Actions'
+import {API_URL, PHOTO_URL, albumPush, postRequests, abPostPayload, postAlbums} from './Actions/Actions'
 
 class Upload  extends Component {
     static propTypes = {
@@ -79,7 +79,7 @@ render() {
                 <p>Drop your files here or click to upload</p>
                 {photos.map((el, i) => {
                     return (
-                        <ImagePreview key = {i} photos = {el} />
+                        <ImagePreview key = {i} photos = {`${API_URL}${PHOTO_URL}${el}`} />
                     )
 
                 })}

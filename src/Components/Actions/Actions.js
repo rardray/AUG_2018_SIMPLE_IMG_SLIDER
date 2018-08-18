@@ -7,7 +7,9 @@ export const sliderPayload = [
      'keydown',
      'keydown',
 ]
-
+export const albumScrollPayload = [
+    'keydown', 'keydown'
+]
 export const actionPayload = function(a, b , c, d, e) {
     return [a, b, c, d, e,]
 }
@@ -19,7 +21,9 @@ export function windowListeners(payload, payload2, listener) {
 }
 
 //urls
-export const API_URL = 'http://192.168.0.3:3001'
+//export const API_URL = 'http://192.168.0.3:3001'
+export const API_URL = 'http://localhost:3001'
+export const PHOTO_URL = '/public/images'
 
 export function getAlbums(id) {
     return '/albums/one/' + id }
@@ -50,6 +54,17 @@ export const albumListPayload = (value) => {
 export function albumPush(value) {
     this.props.history.push('/album/' + value)
 }
+//error handler
+export function errorHandler(data, status, history) {
+    if(status === 401) {
+        alert(`${data}`)
+        return history.push('/login')
+    }
+    if (status === 404 ) {
+        return history.push('/404')
+    }
+    return alert(`${data}`)
+}
 // AJAX requests
 
 export function loginUser(data, url, value){
@@ -65,7 +80,11 @@ export function loginUser(data, url, value){
       
     })
     
-    .catch(err => err)
+    .catch(err => {
+        let data = err.response.data
+        let status = err.response.status
+        errorHandler(data, status, this.props.history)
+    })
 }
 
 export function getRequests(url, payload, token){
@@ -75,17 +94,26 @@ export function getRequests(url, payload, token){
     }).then(res => {
         data = res.data
         this.setState(payload(data))
+
         console.log(data)
     })
-    .catch(err => err)
+    .catch(err  => {
+        let data = err.response.data
+        let status = err.response.status
+        errorHandler(data, status, this.props.history)
+    })
 }
-export function postRequests(url, payload, token, action) {
+export function postRequests(url, payload, header, action) {
     let data = {}
     axios.post(`${API_URL}${url}`, payload, {
-    headers: { Authorization: token }
+    headers: { Authorization: header }
     }).then(res => {
     data = res.data
     action(data)
+    console.log(data)
+})
+.catch(err => {
+    data = err.data
     console.log(data)
 })
 }
