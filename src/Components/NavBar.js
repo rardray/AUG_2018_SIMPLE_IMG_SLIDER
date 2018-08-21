@@ -2,13 +2,15 @@ import React from 'react';
 import '../StyleSheets/App.css'
 import { NavLink, withRouter } from 'react-router-dom';
   import Logout from './LoginComponents/Logout'
+  import HomeIcon from './HomeIcon'
   
 
 const NavBar = (props) => {
-    const {authorized, cookies, clearInfo, firstName, lastName } = props
+    const {authorized, cookies, clearInfo, firstName, lastName, history } = props
     return (
 <div className = 'nav-bar' >{authorized ? 
     <div>
+        <HomeIcon history = {history} />
         <NavLink  
             className= 'nav-link' 
             exact to = '/upload' >

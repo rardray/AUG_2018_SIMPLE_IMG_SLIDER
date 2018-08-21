@@ -54,7 +54,8 @@ class App extends Component {
           firstName = {this.state.user.firstName} 
           lastName = {this.state.user.lastName} 
           clearInfo = {this.clearInfo} 
-          cookies = {this.props.cookies}/>
+          cookies = {this.props.cookies}
+          history = {this.props.history}/>
       <div className = 'App' style = {{minHeight: this.state.windowHeight}}>
       <Routes token = {cookies.get('token')} user = {this.state.user} loginUser = {this.loginUser} history = {this.props.history} />
        </div>
