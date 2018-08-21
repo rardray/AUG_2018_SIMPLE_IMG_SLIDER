@@ -11,7 +11,7 @@ import axios from 'axios';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import {API_URL} from './Actions/Actions'
-
+import Progress from './Progress'
 class Slider extends Component {
     static propTypes = {
         cookies: instanceOf(Cookies).isRequired
@@ -24,7 +24,8 @@ class Slider extends Component {
             currentIndex: 0,
             translateValue: 0,
             width: '',
-            height: ''
+            height: '',
+            loading: false
     }
         this.setSlideshow = ''
         this.windowListeners = windowListeners.bind(this)
@@ -34,11 +35,14 @@ class Slider extends Component {
     componentWillMount() {
         this.adjustHeight()
     }
+    async setLoader() {return this.setState({loading: true})}
 
     componentDidMount() {
+        this.setLoader().then(()=> {
         const { cookies } = this.props
         const id = this.props.match.params.id
         this.getRequests(getAlbums(id), albumsPayload, cookies.get('token'))
+        })
    
         this.windowListeners(
             sliderPayload, actionPayload(
@@ -116,6 +120,7 @@ class Slider extends Component {
         }
     }
     render() {
+        const {loading} = this.state
         const pictureWrap = () => {
             if(  this.state.width < this.state.height) {
                 return {height: 'auto',
@@ -131,6 +136,7 @@ class Slider extends Component {
             <div className = 'slider-wrapper' style = {{
                 transform: `translateX(${this.state.translateValue}px)`, //<--- moves div to right by calculating previous width.
                 transition: 'transform ease-out 0.45s' }} >
+                <div className = {loading ? 'loader-visible' : 'loader-hidden'}><Progress/> </div> 
             {this.state.images.map((el, i) => {
                 return (
                     <Slide key = {i} image = {`${API_URL}${PHOTO_URL}${el}`} flex = {pictureWrap()} />

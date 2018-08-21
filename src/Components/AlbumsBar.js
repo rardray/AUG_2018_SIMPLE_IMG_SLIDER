@@ -3,7 +3,7 @@ import '../StyleSheets/style.css'
 const AlbumsBar = props =>{
     return(
         <div>
-            <h3 className = 'albums-bar' >Photo Album Collection</h3>
+            <h5 className = 'albums-bar' >Photo Album Collection</h5>
         </div>)
 }
 

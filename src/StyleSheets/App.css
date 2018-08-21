@@ -1,13 +1,13 @@
 .App {
   text-align: center;
-  background-color: lightgrey;
+  background-color: white;
   display: block;
   width: 100%;
   
 }
 
 .nav-bar {
-  height: 50px;
+  height: 100%;
   background-color: royalblue;
   display: block;
   position: sticky;

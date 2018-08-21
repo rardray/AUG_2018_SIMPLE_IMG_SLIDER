@@ -21,7 +21,7 @@ class RegisterInput extends Component {
 
     handleSubmit = e => {
         if(!this.state.email || !this.state.password) {
-            return
+          return
         }
         e.preventDefault()
         this.props.loginUser(this.state, url, payload)

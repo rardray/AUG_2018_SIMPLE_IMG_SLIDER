@@ -2,14 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import '../StyleSheets/style.css'
-import $ from 'jquery'
+import Progress from './Progress'
 import {API_URL, PHOTO_URL } from './Actions/Actions'
+
 const styles = {
     card: {
       maxWidth: 345,
@@ -23,30 +21,45 @@ const styles = {
     },
   };
 
-
-
 const Albums = (props) => {
     const { classes } = props
-    return (<div   onClick = {props.handleClick} style= {{display: 'inline-block', padding: 0, verticalAlign: 'top', cursor: 'pointer'}}>
-        <Card className={classes.card}>
-        <CardMedia
-          className={classes.media}
-          image={`${API_URL}${PHOTO_URL}${props.photo[0]}`}
-          title={props.title}
-        />
-           <div className = 'album-container' style = {{backgroundImage: `url(${API_URL}${PHOTO_URL}${props.photo[1]})`}} >
+    const {loading } = props
+    return (
+        <div   
+            onClick = {props.handleClick} 
+            style= {
+                {display: 'inline-block', 
+                padding: 0, 
+                verticalAlign: 'top', 
+                cursor: 'pointer'}}>
+            <Card className={classes.card}>
+               <CardMedia
+                    className={classes.media}
+                    image={`${API_URL}${PHOTO_URL}${props.photo[0]}`}
+                    title={props.title}
+               /> 
+                 <div 
+                    className = 'album-container' 
+                    style = {{
+                        backgroundImage: `url(${API_URL}${PHOTO_URL}${props.photo[1]})`}} 
+                    >
+                </div> 
+                <div 
+                    className = 'album-container' 
+                    style = {{
+                        backgroundImage: `url(${API_URL}${PHOTO_URL}${props.photo[2]})`}} 
+                    >
+                </div>
+                <div className = 'card-overlay'>
+                    <Typography gutterBottom variant="headline" component="h2" style = {{color: 'white', backgroundColor: 'rgba(0,0,0,.6)', padding: 6, margin: 0}} >
+                        "{props.title}"
+                    </Typography>
+                    <Typography style = {{color: 'white', backgroundColor: 'rgba(0,0,0,.6)', paddingLeft: 6, margin: 0, fontFamily: 'serif', fontStyle: 'italic' }}>"by {props.profile.firstName} {props.profile.lastName}"
+                    </Typography>
+                </div>
+            </Card>
         </div>
-        <div className = 'album-container' style = {{backgroundImage: `url(${API_URL}${PHOTO_URL}${props.photo[2]})`}} >
-        </div>
-        <div className = 'card-overlay'>
-        <Typography gutterBottom variant="headline" component="h2" style = {{color: 'white', backgroundColor: 'rgba(0,0,0,.6)', padding: 6, margin: 0}} >
-            "{props.title}"
-          </Typography>
-          <Typography style = {{color: 'white', backgroundColor: 'rgba(0,0,0,.6)', paddingLeft: 6, margin: 0, fontFamily: 'serif', fontStyle: 'italic' }}>"by {props.profile.firstName} {props.profile.lastName}"</Typography>
-          </div>
-      </Card>
-    </div>)
-
+        )
 }
 Albums.propTypes = {
     classes: PropTypes.object.isRequired,

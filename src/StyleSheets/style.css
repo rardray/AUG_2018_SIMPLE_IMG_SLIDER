@@ -157,13 +157,29 @@ html, body, .app, .main {
 
         .albums-bar {
             width: 1005;
-            height: 50px;
+            height: 40px;
             padding: 8px;
             background-color: white;
             text-align: left;
             color: steelblue
         }
-
+        .loader-visible {
+            visibility: visible;
+            opacity: 1;
+            position: absolute;
+            text-align: center;
+            width: 100%;
+            z-index: 4;
+        }
+        .loader-hidden { 
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s 1s, opacity 1s linear;
+            position: absolute;
+            z-index: 4;
+            text-align: center;
+            width: 100%;
+        }
     @keyframes arrows {
         from { background-color: darkslategray; padding: 6px; transform: rotate(0deg)}
         to { background-color: white; padding: 11px; transform: rotate(360deg)}

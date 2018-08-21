@@ -1,4 +1,7 @@
 import axios from 'axios';
+/*=====================================
+ACTIONS
+======================================*/
 
 export const sliderPayload = [
      'resize',
@@ -20,42 +23,56 @@ export function windowListeners(payload, payload2, listener) {
   }
 }
 
-//urls
+/*===============================================
+URLS
+===============================================*/
+
 //export const API_URL = 'http://192.168.0.3:3001'
 export const API_URL = 'http://localhost:3001'
 export const PHOTO_URL = '/public/images'
 export const UPLOAD = '/upload'
-
+export const postAlbums = '/albums'
 export function getAlbums(id) {
     return '/albums/one/' + id }
-
 export function listAlbums(id) {
     return '/albums/' + id
 }
-export const postAlbums = '/albums'
-//headers
+
+/*=================================================
+HEADERS
+=================================================*/
+
 export const imageHeader = { "X-Requested-With": "XMLHttpRequest" }
-//post request payloads
+export function authHeader(token) {
+    return {Authorization: token}
+}
+/*================================================
+REQUEST BODY PAYLOADS
+================================================*/
 
 export const abPostPayload = (data, id) => {
    return  {collectionId: id, title: data.title, photos: data.photos}
 }
-//setState payloads
+
+/*================================================
+SETSTATE PAYLOADS
+================================================*/
+
 export const albumsPayload = (value) => { 
     return {
-        images: value.photos
+        images: value.photos, loading: false
     }
 }
 
 export const albumListPayload = (value) => {
     return {
-        albums: value
+        albums: value, loading: false
     }
 }
 export function setImageState(value) {
     console.log(value)
     this.setState(prevState => {
-        return {photos: [...prevState.photos, value]}
+        return {photos: [...prevState.photos, value], loading: false}
     })
 }
 //push
@@ -63,7 +80,7 @@ export function albumPush(value) {
     this.props.history.push('/album/' + value)
 }
 //error handler
-export function errorHandler(data, status, history) {
+export function errorHandler(data, status, history, func) {
     if(status === 401) {
         alert(`${data}`)
         return history.push('/login')
@@ -73,7 +90,12 @@ export function errorHandler(data, status, history) {
     }
     return alert(`${data}`)
 }
-// AJAX requests
+
+/*=====================================================
+AJAX REQUESTS
+=====================================================*/
+
+//LOGIN / REGISTER REQUESTS=========================== 
 
 export function loginUser(data, url, value){
     const { cookies } = this.props
@@ -91,9 +113,11 @@ export function loginUser(data, url, value){
     .catch(err => {
         let data = err.response.data
         let status = err.response.status
-        errorHandler(data, status, this.props.history)
+        errorHandler(data.error, status, this.props.history)
     })
 }
+
+//GET REQUESTS <=====================================
 
 export function getRequests(url, payload, token){
     let data = {}
@@ -102,8 +126,6 @@ export function getRequests(url, payload, token){
     }).then(res => {
         data = res.data
         this.setState(payload(data))
-
-        console.log(data)
     })
     .catch(err  => {
         let data = err.response.data
@@ -111,21 +133,20 @@ export function getRequests(url, payload, token){
         errorHandler(data, status, this.props.history)
     })
 }
+
+//POST REQUESTS====================================>
+
 export function postRequests(url, payload, header, action) {
     let data = {}
     axios.post(`${API_URL}${url}`, payload, {
         headers: header
     }).then(res => {
-    data = res.data
-    console.log(data)
-    action(data)
-    
-    console.log(data)
-})
-.catch(err => {
-    // let data = err.response.data
-     //let status = err.response.status
-     //errorHandler(data, status, this.props.history)
-    console.log(data)
-})
+        data = res.data
+        action(data)
+    })
+    .catch(err => {
+        let data = err.response.data
+        let status = err.response.status
+        errorHandler(data, status, this.props.history)
+    })
 }

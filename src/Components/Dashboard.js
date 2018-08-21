@@ -19,6 +19,7 @@ class Dashboard extends Component {
 
     componentDidMount() {
         const { token, user } = this.props
+        this.setState({loading: true})
         this.getRequests(listAlbums(user._id), albumListPayload, token)
         windowListeners(albumScrollPayload, actionPayload(this.keyRight, this.keyLeft), window.addEventListener)
     }
@@ -64,25 +65,27 @@ class Dashboard extends Component {
             return(
                 <div style = {{
                         position: 'absolute', 
-                        bottom: 0, 
-                        overflow: 'hidden', 
-                        whiteSpace: 'nowrap', 
+                        bottom: 0,  
                         width: '100%'}}>
                 <AlbumsBar/>
+                <div style = {{overflow: 'scroll', whiteSpace: 'nowrap'}}>
                     <div style = {{ 
                         transform: `translateX(${translate}px`,
                         transition: 'transform ease-out 0.45s',
                         zIndex: -1}}>
                          <div>{this.state.albums.map((el, i) => {
-                            return <Albums 
+                            return <Albums
+                                loading = {this.state.loading} 
                                 key = {i} 
                                 photo = {el.photos} 
                                 profile = {el.collectionId.profile} 
                                 title = { el.collectionTitle } 
                                 handleClick = {this.selectAlbum.bind(this, el._id)} 
-                                width = {this.state.width}/>
+                                width = {this.state.width}
+                                date = {el.createdAt}/>
                             })}
                         </div>
+                     </div>
                      </div>
                 <div style = {{transform: 'translateY(-270px)', zIndex: 5, height: 0 }}>
                     {this.state.albums.map((el, i) => {

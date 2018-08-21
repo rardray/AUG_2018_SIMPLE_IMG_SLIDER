@@ -22,9 +22,8 @@ app.use(bodyParser.json())
 
 app.use(cors())
 app.post('/upload', (req, res, next) => {
-    console.log(req);
     var imageFile = req.files.file;
-  
+    var dir = req.b
     imageFile.mv(`${__dirname}/public/images/${req.body.filename}`, function(err) {
       if (err) {
         return res.status(500).send({error: err});

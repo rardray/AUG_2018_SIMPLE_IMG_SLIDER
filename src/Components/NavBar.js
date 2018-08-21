@@ -12,7 +12,7 @@ const NavBar = (props) => {
         <NavLink  
             className= 'nav-link' 
             exact to = '/upload' >
-            Add Photos
+            New Photo Album
         </NavLink>
       <Logout 
         cookies = {cookies} 

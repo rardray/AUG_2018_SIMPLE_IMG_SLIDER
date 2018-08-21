@@ -30,7 +30,7 @@ class App extends Component {
     } else {
       this.props.history.push('/login')
     }
-    windowListeners({a: 'resize'}, this.adjustHeight)
+    windowListeners({a: 'resize'}, this.adjustHeight, window.addEventListener)
     console.log(this.state.user._id)
   }
   
@@ -39,6 +39,9 @@ class App extends Component {
   }
  
   clearInfo = () => {
+    const { cookies } = this.props
+    cookies.remove('token')
+    cookies.remove('user')
     this.setState({authorized: false, user: ''})
     this.props.history.push('/login')
   }

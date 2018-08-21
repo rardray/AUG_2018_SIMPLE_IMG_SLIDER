@@ -7,6 +7,7 @@ import Login from './LoginComponents/Login';
 import Slider from './Slider'
 import Upload from './upload'
 import Dashboard from './Dashboard'
+import error404 from './404'
 
 const Routes = (props) => {
     const { loginUser, history, token, user } = props
@@ -22,8 +23,9 @@ const Routes = (props) => {
             <RegisterInput {...props} loginUser = {loginUser}/> 
             </Login>} />
          <Route exact path = '/album/:id' component = {Slider} />
-         <Route exact path = '/upload' component = {Upload} />
+         <Route exact path = '/upload' render = {(props) => <Upload {...props} token = {token} user = {user} />} />
          <Route exact path = '/dashboard' render = {(props) => <Dashboard {...props} token = {token} user = {user}/>} />
+         <Route exact path = '/404' component = {error404} />
          </div>
     )
 }
