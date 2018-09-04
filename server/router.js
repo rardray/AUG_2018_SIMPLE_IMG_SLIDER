@@ -2,7 +2,8 @@ const AuthenticationController = require('./controllers/authentication'),
     express = require('express'),
     passportService = require('./config/passport'),
     passport = require('passport'),
-    albums = require('./controllers/photocollection')
+    albums = require('./controllers/photocollection'),
+    profile= require('./controllers/profile')
 
     //middleware
     const requireAuth = passport.authenticate('jwt', {session: false})
@@ -12,7 +13,8 @@ const AuthenticationController = require('./controllers/authentication'),
     module.exports = function(app) {
         const apiRoutes = express.Router(),
             authRoutes = express.Router(),
-            albumRoutes = express.Router()
+            albumRoutes = express.Router(),
+            profileRoutes = express.Router()
 
         apiRoutes.use('/auth', authRoutes)
         //registration route * note * stacks on /auth because apiRoutes is root
@@ -25,6 +27,10 @@ const AuthenticationController = require('./controllers/authentication'),
         albumRoutes.get('/:collectionId', requireAuth, albums.getPhotoCollection)
         albumRoutes.post('/', requireAuth, albums.postPhotoCollection )
         app.use('/', apiRoutes)
+        apiRoutes.use('/profile', profileRoutes)
+
+        profileRoutes.put('/:id', requireAuth, profile.putProfile )
+
 
         
 

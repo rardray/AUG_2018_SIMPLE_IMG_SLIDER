@@ -5,8 +5,8 @@ import ImagePreview from './imagePreview'
 import '../StyleSheets/style.css'
 import {API_URL, PHOTO_URL, albumPush, postRequests, abPostPayload, postAlbums, UPLOAD, imageHeader, setImageState} from './Actions/Actions'
 import ImageCompressor from 'image-compressor.js'
-import Loader from './Loader';
 import Progress from './Progress'
+
 class Upload  extends Component {
     constructor(props) {
         super(props)

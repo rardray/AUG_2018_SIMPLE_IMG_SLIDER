@@ -27,15 +27,17 @@ class App extends Component {
     const {cookies} = this.props
     if(cookies.get('token')) {
       this.setState({authorized: true})
+      console.log(cookies.get('user'))
     } else {
       this.props.history.push('/login')
     }
     windowListeners({a: 'resize'}, this.adjustHeight, window.addEventListener)
-    console.log(this.state.user._id)
+    console.log(this.state.windowHeight)
   }
   
   adjustHeight = () =>{
     this.setState({windowHeight: $(window).height()})
+    console.log(this.state.windowHeight)
   }
  
   clearInfo = () => {
@@ -49,7 +51,7 @@ class App extends Component {
     const {cookies} = this.props
     return (
       <div>
-        <NavBar 
+        <NavBar
           authorized = {this.state.authorized} 
           firstName = {this.state.user.firstName} 
           lastName = {this.state.user.lastName} 
@@ -57,7 +59,7 @@ class App extends Component {
           cookies = {this.props.cookies}
           history = {this.props.history}/>
       <div className = 'App' style = {{minHeight: this.state.windowHeight}}>
-      <Routes token = {cookies.get('token')} user = {this.state.user} loginUser = {this.loginUser} history = {this.props.history} />
+      <Routes token = {cookies.get('token')} windowHeight = {this.state.windowHeight} user = {this.state.user} loginUser = {this.loginUser} history = {this.props.history} />
        </div>
        </div>
     );

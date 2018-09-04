@@ -7,7 +7,7 @@ const payload = (data) => {
 class RegisterInput extends Component {
     constructor(props) {
         super(props)
-        this.state = {firstName: '', lastName: '', email: '', password: ''}
+        this.state = {firstName: '', lastName: '', email: '', password: '', profileImage: 'http://localhost:3001/public/default.jpg', about: ''}
     }
    
     handleChange = (e) => {

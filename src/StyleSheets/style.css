@@ -98,7 +98,7 @@ html, body, .app, .main {
         color: white
     }
     
-    .preview-container {
+    .preview-containeri {
         display: inline-block;
         width: 100px;
         height: 100px;
@@ -199,9 +199,53 @@ html, body, .app, .main {
             animation-duration: .3s;
             animation-iteration-count: 1;
             background-color: lightgray;
-            border-width: 10px;
-            border-color: skyblue;
             border: 4px solid skyblue;
+        }
+
+        .nav-header {
+            color: white;
+            display: inline-block;
+            position: absolute;
+            left: 100px;
+            margin: 6px;
+            text-align: right;
+            padding: 6px;
+            height: 40px;
+        }
+        .profile-drop {
+            width: 100%;
+            background-color: lightblue;
+            display: inline-block;
+            position: relative;
+            border-radius: 100%;
+            margin: 6px;
+            background-position: 50%, 60%;
+            background-size: cover;
+        
+        }
+        .profile-drop:after {
+            content: '';
+            display: inline-block;
+            padding-bottom: 100%
+        }
+        .preview-container {
+            display: block;
+            position: absolute;
+            height: 90%;
+            width: 40%;
+            left: 30%;
+            z-index: 7;
+            background-color: white;
+            padding-bottom: 10px;
+            border-radius: 0px;
+            border: 1px solid;
+            box-shadow: 10px 20px 75px black;
+        }
+        .preview {
+            height: 80%;
+            width: 100%;
+            object-fit: cover;
+            opacity: 1;
         }
     @keyframes icon-hover {
         from {background-color: transparent; border-width: 0px; border-color: transparent;}

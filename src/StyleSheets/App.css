@@ -7,8 +7,8 @@
 }
 
 .nav-bar {
-  height: 100%;
-  background-color: royalblue;
+  height: 60px;
+  background: linear-gradient(to right, royalblue, rgb(97, 125, 209));
   display: block;
   position: sticky;
   top: 0px;

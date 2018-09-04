@@ -3,14 +3,16 @@ import '../StyleSheets/App.css'
 import { NavLink, withRouter } from 'react-router-dom';
   import Logout from './LoginComponents/Logout'
   import HomeIcon from './HomeIcon'
+  import '../StyleSheets/style.css'
   
 
 const NavBar = (props) => {
     const {authorized, cookies, clearInfo, firstName, lastName, history } = props
     return (
-<div className = 'nav-bar' >{authorized ? 
+<div className = 'nav-bar' ><h3 className = 'nav-header' >Photo App</h3>{authorized ? 
     <div>
         <HomeIcon history = {history} />
+        
         <NavLink  
             className= 'nav-link' 
             exact to = '/upload' >
@@ -27,7 +29,8 @@ const NavBar = (props) => {
     <div 
         className = 'nav-link' 
         onClick = {clearInfo} 
-        style = {{float: 'right'}}>Login</div> }</div>
+        style = {{float: 'right'}}>Login</div> }
+    </div>
     )
 }
 

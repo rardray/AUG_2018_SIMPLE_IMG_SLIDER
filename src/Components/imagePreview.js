@@ -5,7 +5,7 @@ import Loader from './Loader'
 
 const ImagePreview = props => {
     return (
-        <div className = 'preview-container'>
+        <div className = 'preview-containeri'>
             <img  src = {props.photos}  className = 'image-preview'/>
         </div>
     )

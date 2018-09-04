@@ -37,7 +37,9 @@ export function getAlbums(id) {
 export function listAlbums(id) {
     return '/albums/' + id
 }
-
+export function putImage(id) {
+    return '/profile/' + id
+}
 /*=================================================
 HEADERS
 =================================================*/
@@ -57,6 +59,12 @@ export const abPostPayload = (data, id) => {
 /*================================================
 SETSTATE PAYLOADS
 ================================================*/
+export function setProfileImage(value) {
+    this.setState(prevState => {
+        return {user: {...prevState.user, profileImage: value}}
+    })
+}
+
 
 export const albumsPayload = (value) => { 
     return {
@@ -148,5 +156,20 @@ export function postRequests(url, payload, header, action) {
         let data = err.response.data
         let status = err.response.status
         errorHandler(data, status, this.props.history)
+    })
+}
+
+export function putRequests(url, payload, header, action) {
+    let data = {} 
+    axios.put(`${API_URL}${url}`, payload, {
+        headers: header
+    }).then(res => {
+        data = res.data
+        action(data)
+    })
+    .catch(err => {
+        let data = err.response.data
+        let status = err.response.status
+        errorHandler(data, status)
     })
 }

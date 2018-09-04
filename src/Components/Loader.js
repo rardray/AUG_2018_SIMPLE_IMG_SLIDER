@@ -14,13 +14,16 @@ class Loader extends Component {
  
     componentDidMount() {
         this.setState({loading: true})
-        let img = new Image
-        let src = this.props.photos
+        let photos = this.props.photos
+        let img = new Image()
+        let src = photos[0]
         img.src = src
+        console.log(img)
         img.onload = (e) => {
-            this.setState({image: src, loading: false})
+            alert(this.width + this.height)
+            this.setState({image: src, loading: false})  
         }
-            
+         
     }
     finishLoading = () => {
         this.setState({loading: false})

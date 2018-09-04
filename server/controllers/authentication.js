@@ -17,6 +17,8 @@ function setUserInfo(request) { //<--- set info for cookie.. no sensitive like p
         lastName: request.profile.lastName,
         email: request.email,
         role: request.role,
+        profileImage: request.profile.profileImage,
+        about: request.profile.about
     }
 }
 //login route : used in router.js api/auth/login
@@ -35,6 +37,8 @@ exports.register = function(req, res, next) {
     const firstName = req.body.firstName
     const lastName = req.body.lastName
     const password = req.body.password
+    const profileImage = req.body.profileImage
+    const about = req.body.about
     //return error if no email
     if (!email) {
         return res.status(422).send({ error: 'you must enter email address'})
@@ -55,7 +59,7 @@ exports.register = function(req, res, next) {
         let user = new User({
             email: email,
             password: password,
-            profile: {firstName: firstName, lastName: lastName}
+            profile: {firstName: firstName, lastName: lastName, profileImage: profileImage, about: about}
         })
         user.save(function(err, user){
             if (err) {return next(err)}
