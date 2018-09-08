@@ -18,7 +18,6 @@ class Loader extends Component {
         let img = new Image()
         let src = photos[0]
         img.src = src
-        console.log(img)
         img.onload = (e) => {
             alert(this.width + this.height)
             this.setState({image: src, loading: false})  

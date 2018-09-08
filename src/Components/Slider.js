@@ -7,18 +7,17 @@ import $ from 'jquery'
 import Dots from './SliderComponents/Dots'
 import SlideShow from './SlideShow'
 import {windowListeners, sliderPayload, actionPayload, getRequests, getAlbums, albumsPayload, PHOTO_URL } from './Actions/Actions';
-import axios from 'axios';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import {API_URL} from './Actions/Actions'
 import Progress from './Progress'
+
 class Slider extends Component {
     static propTypes = {
         cookies: instanceOf(Cookies).isRequired
       }
       constructor(props) {
         super(props)
-        const { cookies } = props
         this.state = {
             images: [],
             currentIndex: 0,
@@ -97,7 +96,6 @@ class Slider extends Component {
             this.nextSlide(), 
             5000
         )
-        console.log('was activated')
     }
     stopSlideShow = () => {
         clearInterval(this.setSlideshow)

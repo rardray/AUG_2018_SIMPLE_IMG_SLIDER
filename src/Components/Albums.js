@@ -22,7 +22,6 @@ const styles = {
 
 const Albums = (props) => {
     const { classes } = props
-    const {loading } = props
     return (
         <div   
             onClick = {props.handleClick} 

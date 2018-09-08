@@ -31,7 +31,6 @@ exports.getAlbum = (function(req, res, next) {
             return next(err)
         }
         res.json(album)
-        console.log(album)
     })
 })
 
@@ -49,6 +48,5 @@ exports.postPhotoCollection = (function(req, res, next) {
             return next(err)
         }
         res.status(201).json(photocollection._id)
-        console.log(photocollection._id)
     })
 })

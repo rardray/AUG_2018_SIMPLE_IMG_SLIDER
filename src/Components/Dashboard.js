@@ -7,23 +7,18 @@ import { getRequests,
         windowListeners, 
         putRequests,
         putImage,
-        authHeader,
         postRequests,
         UPLOAD,
         imageHeader,
-        setProfileImage,
-        API_URL,
-        PHOTO_URL} from './Actions/Actions'
+        setProfileImage} from './Actions/Actions'
 import Albums from './Albums'
 import '../StyleSheets/style.css';
 import AlbumsBar from './AlbumsBar';
 import Dots from './SliderComponents/Dots';
 import Profile from './Profile';
 import ImageCompressor from 'image-compressor.js';
-import $ from 'jquery';
 import PhotoPreview from './PhotoPreview';
 
-const height = function() {return $(window).height()}
 
 class Dashboard extends Component {
     constructor(props) {
@@ -48,8 +43,8 @@ class Dashboard extends Component {
     selectAlbum = (id, e) => {
         e.preventDefault()
         this.props.history.push(`/album/${id}`)
-        console.log(this.state.albums)
     }
+
     scrollAlbumRight = () => {
         const { index, albums } = this.state
         if(index === albums.length -1) {
@@ -101,17 +96,12 @@ class Dashboard extends Component {
             }
         } )
     }
-    changeProfileImage = e => {
+    changeProfileImage = () => {
         const {token} = this.props
         const id = this.state.user._id;
         this.putRequests(putImage(id), {profileImage: this.state.preview}, {Authorization: token}, this.setProfileImage)
 
 
-    }
-    componentDidUpdate() {
-        console.log(this.state.user)
-        console.log(height())
-        console.log(this.props.windowHeight)
     }
     render() {
         const {windowHeight} = this.props 
@@ -162,4 +152,4 @@ class Dashboard extends Component {
     }
 }
 
-export default Dashboard
+export default Dashboard;

@@ -22,7 +22,6 @@ const Profile = (props) => {
     )
 }
 
-console.log(document.getElementById('user'))
 
 
 export default Profile; 

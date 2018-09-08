@@ -27,17 +27,14 @@ class App extends Component {
     const {cookies} = this.props
     if(cookies.get('token')) {
       this.setState({authorized: true})
-      console.log(cookies.get('user'))
     } else {
       this.props.history.push('/login')
     }
     windowListeners({a: 'resize'}, this.adjustHeight, window.addEventListener)
-    console.log(this.state.windowHeight)
   }
   
   adjustHeight = () =>{
     this.setState({windowHeight: $(window).height()})
-    console.log(this.state.windowHeight)
   }
   setUserCookie = (data) => {
     const {cookies} = this.props
@@ -50,6 +47,7 @@ class App extends Component {
     this.setState({authorized: false, user: ''})
     this.props.history.push('/login')
   }
+  
   render() {
     const {cookies} = this.props
     return (

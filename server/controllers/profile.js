@@ -33,21 +33,17 @@ exports.postProfile = function(req, res, next) {
             return next(err)
         }
         res.status(201).json(profile)
-        console.log(profile)
     })
 }
 
 exports.putProfile = function(req, res, next) {
     const id = req.params.id
-    console.log(id)
     const profileImage = req.body.profileImage
-    console.log(profileImage)
     User.findByIdAndUpdate(id, {$set: {'profile.profileImage' : profileImage}}, {new: true}, function(err, data){
         if(err) {
             res.send({error: err})
             return next(err)
         }
         res.status(200).json(data)
-        console.log(data)
     })
 }

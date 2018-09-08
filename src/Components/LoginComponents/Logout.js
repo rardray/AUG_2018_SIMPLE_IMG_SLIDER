@@ -2,7 +2,7 @@ import React from 'react'
 import '../../StyleSheets/App.css'
 
 const Logout = (props) => {
-   const { cookies, clearInfo } = props
+   const { clearInfo } = props
    const handleClick = ()=>{
        clearInfo()
    }

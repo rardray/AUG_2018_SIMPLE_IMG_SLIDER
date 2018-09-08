@@ -1,5 +1,6 @@
 import React from 'react';
 import '../StyleSheets/style.css'
+
 const SlideShow = (props) => {
     return (
         <div>
