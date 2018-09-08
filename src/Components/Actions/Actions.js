@@ -61,7 +61,7 @@ SETSTATE PAYLOADS
 ================================================*/
 export function setProfileImage(value) {
     this.setState(prevState => {
-        return {user: {...prevState.user, profileImage: value}}
+        return {user: {...prevState.user, profileImage: value.profile.profileImage}, togglePreview: !this.state.togglePreview}
     })
 }
 

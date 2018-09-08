@@ -39,7 +39,10 @@ class App extends Component {
     this.setState({windowHeight: $(window).height()})
     console.log(this.state.windowHeight)
   }
- 
+  setUserCookie = (data) => {
+    const {cookies} = this.props
+    cookies.set('user', data)
+  }
   clearInfo = () => {
     const { cookies } = this.props
     cookies.remove('token')
@@ -59,7 +62,7 @@ class App extends Component {
           cookies = {this.props.cookies}
           history = {this.props.history}/>
       <div className = 'App' style = {{minHeight: this.state.windowHeight}}>
-      <Routes token = {cookies.get('token')} windowHeight = {this.state.windowHeight} user = {this.state.user} loginUser = {this.loginUser} history = {this.props.history} />
+      <Routes setUserCookie = {this.setUserCookie} token = {cookies.get('token')} windowHeight = {this.state.windowHeight} user = {this.state.user} loginUser = {this.loginUser} history = {this.props.history} />
        </div>
        </div>
     );

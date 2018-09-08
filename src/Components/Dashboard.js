@@ -22,8 +22,9 @@ import Profile from './Profile';
 import ImageCompressor from 'image-compressor.js';
 import $ from 'jquery';
 import PhotoPreview from './PhotoPreview';
+
 const height = function() {return $(window).height()}
-const width = function() { return $(window).width()}
+
 class Dashboard extends Component {
     constructor(props) {
         super(props)
@@ -31,6 +32,7 @@ class Dashboard extends Component {
         this.getRequests = getRequests.bind(this)
         this.postRequests = postRequests.bind(this)
         this.setProfileImage = setProfileImage.bind(this)
+        this.putRequests = putRequests.bind(this)
     }
 
     componentDidMount() {
@@ -86,9 +88,6 @@ class Dashboard extends Component {
 
     handleDrop = files => {
         const postRequests = this.postRequests;
-        const setProfileImage = this.setProfileImage
-        const token = this.props.token
-        const id = this.state.user._id
         const setPreview = this.setPreview
         new ImageCompressor(files[0], {
             quality: .5,
@@ -102,14 +101,20 @@ class Dashboard extends Component {
             }
         } )
     }
+    changeProfileImage = e => {
+        const {token} = this.props
+        const id = this.state.user._id;
+        this.putRequests(putImage(id), {profileImage: this.state.preview}, {Authorization: token}, this.setProfileImage)
 
+
+    }
     componentDidUpdate() {
         console.log(this.state.user)
         console.log(height())
         console.log(this.props.windowHeight)
     }
     render() {
-        const {windowHeight, cancelPreview} = this.props 
+        const {windowHeight} = this.props 
         const {translate, user, togglePreview, preview} = this.state
             return(
                 <div >
@@ -117,7 +122,8 @@ class Dashboard extends Component {
                     preview = {preview} 
                     togglePreview = {togglePreview} 
                     windowHeight = {windowHeight}
-                    cancelPreview = {this.cancelPreview} /> : null }
+                    cancelPreview = {this.cancelPreview}
+                    submit = {this.changeProfileImage} /> : null }
                     <Profile handleDrop = {this.handleDrop} user = {user} />
                 <div style = {{
                         position: 'absolute', 
