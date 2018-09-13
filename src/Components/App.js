@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../StyleSheets/App.css';
 import '../StyleSheets/App.css'
 import $ from 'jquery';
-import {windowListeners} from './Actions/Actions';
+import {windowListeners, setProfileImage} from './Actions/Actions';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import {loginUser} from './Actions/Actions'
@@ -18,6 +18,7 @@ class App extends Component {
     const { cookies } = props
     this.state = { windowHeight: null, user: cookies.get('user') || [], authorized: false }
   this.loginUser = loginUser.bind(this)
+  this.setProfileImage = setProfileImage.bind(this)
 }
    componentWillMount() {
     this.adjustHeight()
@@ -32,7 +33,9 @@ class App extends Component {
     }
     windowListeners({a: 'resize'}, this.adjustHeight, window.addEventListener)
   }
-  
+  updateUser = (data) => {
+    this.setState({user: data})
+  }
   adjustHeight = () =>{
     this.setState({windowHeight: $(window).height()})
   }
@@ -56,7 +59,7 @@ class App extends Component {
           cookies = {this.props.cookies}
           history = {this.props.history}/>
       <div className = 'App' style = {{minHeight: this.state.windowHeight}}>
-      <Routes setUserCookie = {this.setUserCookie} token = {cookies.get('token')} windowHeight = {this.state.windowHeight} user = {cookies.get('user')} loginUser = {this.loginUser} history = {this.props.history} />
+      <Routes updateUser = {this.updateUser} setUserCookie = {this.setUserCookie} token = {cookies.get('token')} windowHeight = {this.state.windowHeight} user = {this.state.user} loginUser = {this.loginUser} history = {this.props.history} />
        </div>
        </div>
     );

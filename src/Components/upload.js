@@ -27,6 +27,8 @@ class Upload  extends Component {
         this.run().then(()=> {const  uploaders = files.map(file => {
             const postRequests = this.postRequests
             const setImageState = this.setImageState
+            const id = this.props.user._id
+            const pid = this.state.title.replace(/ /g, '_')
         new ImageCompressor(file, {
             quality: .5,
             maxHeight: 1600,
@@ -34,8 +36,8 @@ class Upload  extends Component {
             success(result) {
                 const formData = new FormData()
                 formData.append('file', result)
-                formData.append('filename', result.name)
-                return postRequests(UPLOAD, formData, imageHeader, setImageState)
+                formData.append('filename', result.name.replace(/ /g, ''))
+                return postRequests(UPLOAD(id, pid) , formData, imageHeader, setImageState)
                 }
             })
         }

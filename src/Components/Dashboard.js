@@ -41,6 +41,7 @@ class Dashboard extends Component {
     }
     componentWillUnmount() {
         windowListeners(albumScrollPayload, actionPayload(this.keyRight, this.keyLeft), window.removeEventListener)
+        this.props.updateUser(this.state.user)
     }
 
     componentDidUpdate() {

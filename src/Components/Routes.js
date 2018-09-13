@@ -10,7 +10,7 @@ import Dashboard from './Dashboard'
 import error404 from './404'
 
 const Routes = (props) => {
-    const { loginUser, history, token, user, windowHeight, setUserCookie } = props
+    const { loginUser, history, token, user, windowHeight, setUserCookie, updateUser } = props
     return (
         <div>
         <Route exact path = '/login' render = {(props) => 
@@ -24,7 +24,7 @@ const Routes = (props) => {
             </Login>} />
          <Route exact path = '/album/:id' component = {Slider} />
          <Route exact path = '/upload' render = {(props) => <Upload {...props} token = {token} user = {user} />} />
-         <Route exact path = '/dashboard' render = {(props) => <Dashboard {...props} setUserCookie = {setUserCookie} windowHeight = {windowHeight} token = {token} user = {user}/>} />
+         <Route exact path = '/dashboard' render = {(props) => <Dashboard {...props} updateUser = {updateUser} setUserCookie = {setUserCookie} windowHeight = {windowHeight} token = {token} user = {user}/>} />
          <Route exact path = '/404' component = {error404} />
          </div>
     )
