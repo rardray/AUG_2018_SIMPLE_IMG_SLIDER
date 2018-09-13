@@ -231,7 +231,7 @@ html, body, .app, .main {
         .preview-container {
             display: block;
             position: absolute;
-            height: 90%;
+            height: 100%;
             width: 40%;
             left: 30%;
             z-index: 7;
@@ -242,7 +242,7 @@ html, body, .app, .main {
             box-shadow: 10px 20px 75px black;
         }
         .preview {
-            height: 80%;
+            height: 100%;
             width: 100%;
             object-fit: cover;
             opacity: 1;

@@ -14,12 +14,15 @@ const PhotoPreview = (props) => {
             top: 0, 
             display: 'block', 
             paddingTop: 20}}>
-        <div className = 'preview-container' onM >
+        <div className = 'preview-container' >
                     <img className = 'preview' 
                         src = {`${API_URL}${PHOTO_URL}${preview}`}
                         alt = {`${preview}`}/>
-                    <button onClick = { cancelPreview} >discard</button>
-                    <button onClick = {submit} >Update Profile Picture</button>
+                    <button onClick = { cancelPreview}
+                        className = 'btn btn-primary form-control'
+                        style = {{display: 'inline-block', width: '50%'}} >discard</button>
+                    <button onClick = {submit} 
+                        className = 'btn btn-primary form-control' style = {{display: 'inline-block', width: '50%'}}>Update Profile Picture</button>
                     </div>
                         <div  onClick = {cancelPreview} style = {{height: '100%', width: '100%'}}>
                         </div>

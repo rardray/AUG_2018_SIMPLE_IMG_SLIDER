@@ -45,5 +45,6 @@ exports.putProfile = function(req, res, next) {
             return next(err)
         }
         res.status(200).json(data)
+        console.log(data)
     })
 }

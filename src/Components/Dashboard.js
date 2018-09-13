@@ -18,6 +18,7 @@ import Dots from './SliderComponents/Dots';
 import Profile from './Profile';
 import ImageCompressor from 'image-compressor.js';
 import PhotoPreview from './PhotoPreview';
+import axios from 'axios';
 
 
 class Dashboard extends Component {
@@ -35,10 +36,15 @@ class Dashboard extends Component {
         this.setState({loading: true, user: user})
         this.getRequests(listAlbums(user._id), albumListPayload, token)
         windowListeners(albumScrollPayload, actionPayload(this.keyRight, this.keyLeft), window.addEventListener)
+        
        
     }
     componentWillUnmount() {
         windowListeners(albumScrollPayload, actionPayload(this.keyRight, this.keyLeft), window.removeEventListener)
+    }
+
+    componentDidUpdate() {
+        console.log(this.state.user)
     }
     selectAlbum = (id, e) => {
         e.preventDefault()
@@ -75,6 +81,13 @@ class Dashboard extends Component {
     }
     cancelPreview = (e) => {
         e.preventDefault()
+        const id = this.state.preview
+        const { token } = this.props
+        console.log(id)
+        axios.delete(`http://localhost:3001/delete`, {
+            data: {id}
+        } , {
+        }).catch(err => err)
         this.setState({togglePreview: !this.state.togglePreview})
     }
     setPreview = (data) => {
@@ -84,6 +97,8 @@ class Dashboard extends Component {
     handleDrop = files => {
         const postRequests = this.postRequests;
         const setPreview = this.setPreview
+        const id = this.state.user._id
+        const pid = 'profileimage'
         new ImageCompressor(files[0], {
             quality: .5,
             maxwidth: 1000,
@@ -91,8 +106,8 @@ class Dashboard extends Component {
             success(result) {
                 const formData = new FormData()
                 formData.append('file', result)
-                formData.append('filename', result.name)
-                return postRequests(UPLOAD, formData, imageHeader, setPreview)
+                formData.append('filename', result.name.replace(/ /g, '_'))
+                return postRequests(UPLOAD(id, pid), formData, imageHeader, setPreview)
             }
         } )
     }

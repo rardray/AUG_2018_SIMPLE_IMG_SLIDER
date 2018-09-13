@@ -9,6 +9,9 @@ const cors = require('cors')
 var fileUpload = require('express-fileupload');
 const server = app.listen(config.port)
 console.log('Server running on ' + config.port)
+const fs = require('fs')
+const path = require('path')
+var mkdirp = require('mkdirp')
 
 mongoose.connect(config.database)
 const API_URL = 'http://192.168.0.3:3001'
@@ -21,20 +24,32 @@ app.use(bodyParser.urlencoded({extended : false}))
 app.use(bodyParser.json())
 
 app.use(cors())
-app.post('/upload', (req, res, next) => {
+app.post('/upload/:id/:pid', (req, res, next) => {
     var imageFile = req.files.file;
-    var dir = req.b
-    imageFile.mv(`${__dirname}/public/images/${req.body.filename}`, function(err) {
+    var fileName = req.body.filename
+    var mkdirp = require('mkdirp')
+    mkdirp.sync(`${__dirname}/public/images/${req.params.id}/${req.params.pid}`, err => {
+    if (err) return
+   })
+    imageFile.mv(`${__dirname}/public/images/${req.params.id}/${req.params.pid}/${fileName}`, function(err) {
       if (err) {
         return res.status(500).send({error: err});
       }
   
-      res.json( `/${req.body.filename}`);
+      res.json( `/${req.params.id}/${req.params.pid}/${req.body.filename}`)
     });
-  
   })
 
-
+app.delete('/delete', (req, res, next) => {
+  var body = req.body.id
+  console.log(body)
+  fs.unlink(`${__dirname}/public/images${body}`, err => {
+    if (err) 
+      return res.status(500).send({error: err})
+  })
+  console.log('thumbs up soldier')
+  console.log(req.body)
+})
 //cors
 app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*')

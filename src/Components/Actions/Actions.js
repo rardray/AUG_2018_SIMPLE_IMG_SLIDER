@@ -30,7 +30,9 @@ URLS
 //export const API_URL = 'http://192.168.0.3:3001'
 export const API_URL = 'http://localhost:3001'
 export const PHOTO_URL = '/public/images'
-export const UPLOAD = '/upload'
+export function UPLOAD(id, pid) {
+    return `/upload/${id}/${pid}`
+}
 export const postAlbums = '/albums'
 export function getAlbums(id) {
     return '/albums/one/' + id }
@@ -40,6 +42,9 @@ export function listAlbums(id) {
 export function putImage(id) {
     return '/profile/' + id
 }
+
+export const DELETE_PHOTO = '/delete'
+
 /*=================================================
 HEADERS
 =================================================*/
@@ -55,7 +60,9 @@ REQUEST BODY PAYLOADS
 export const abPostPayload = (data, id) => {
    return  {collectionId: id, title: data.title, photos: data.photos}
 }
-
+export function deletePhoto(data) {
+    return {data: {data}}
+}
 /*================================================
 SETSTATE PAYLOADS
 ================================================*/
@@ -166,6 +173,20 @@ export function putRequests(url, payload, header, action) {
     }).then(res => {
         data = res.data
         action(data)
+    })
+    .catch(err => {
+        let data = err.response.data
+        let status = err.response.status
+        errorHandler(data, status)
+    })
+}
+
+export function deleteRequests(url, payload, header, action) {
+    let data = {}
+    axios.delete(`${API_URL}${url}`, payload, {
+        headers: header
+    }).then(()=> {
+        return action()
     })
     .catch(err => {
         let data = err.response.data
