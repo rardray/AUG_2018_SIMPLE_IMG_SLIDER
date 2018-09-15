@@ -23,6 +23,10 @@ class Upload  extends Component {
 }
     async run() { this.setState({loading: true}) }  
     handleDrop = files => {
+        if (!this.state.title) {
+            alert('Please Name Album')
+            return
+        }
        
         this.run().then(()=> {const  uploaders = files.map(file => {
             const postRequests = this.postRequests
@@ -57,6 +61,9 @@ class Upload  extends Component {
     }
     discardAlbum = e => {
         e.preventDefault()
+        const id = this.props.user._id
+        const title = this.state.title.replace(/ /g, '_')
+        axios.delete(`http://localhost:3001/delete`, {data: {id: `/${id}/${title}` }}).catch(err => err)
         this.props.history.push('/dashboard')
     }
 
@@ -71,7 +78,7 @@ render() {
                 name = 'title' 
                 placeholder = 'enter name for photo album' 
                 value = {this.state.title} 
-                onChange = {this.handleChange.bind(this)} />
+                onChange = {photos.length > 0 ? null : this.handleChange.bind(this)} />
             <br/>
             <Dropzone
                 className = 'drop-zone'

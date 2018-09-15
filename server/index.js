@@ -9,11 +9,11 @@ const cors = require('cors')
 var fileUpload = require('express-fileupload');
 const server = app.listen(config.port)
 console.log('Server running on ' + config.port)
-const fs = require('fs')
+const fs = require('fs-extra')
 const path = require('path')
 var mkdirp = require('mkdirp')
 
-mongoose.connect(config.database)
+mongoose.connect(config.database, {useNewUrlParser: true})
 const API_URL = 'http://192.168.0.3:3001'
 app.use(fileUpload());
 app.use('/public', express.static(__dirname + '/public'));
@@ -27,11 +27,12 @@ app.use(cors())
 app.post('/upload/:id/:pid', (req, res, next) => {
     var imageFile = req.files.file;
     var fileName = req.body.filename
+    var URL = `${__dirname}/public/images/${req.params.id}/${req.params.pid}`
     var mkdirp = require('mkdirp')
-    mkdirp.sync(`${__dirname}/public/images/${req.params.id}/${req.params.pid}`, err => {
+    mkdirp.sync(URL, err => {
     if (err) return
    })
-    imageFile.mv(`${__dirname}/public/images/${req.params.id}/${req.params.pid}/${fileName}`, function(err) {
+    imageFile.mv(`${URL}/${fileName}`, function(err) {
       if (err) {
         return res.status(500).send({error: err});
       }
@@ -42,13 +43,18 @@ app.post('/upload/:id/:pid', (req, res, next) => {
 
 app.delete('/delete', (req, res, next) => {
   var body = req.body.id
-  console.log(body)
-  fs.unlink(`${__dirname}/public/images${body}`, err => {
-    if (err) 
-      return res.status(500).send({error: err})
-  })
-  console.log('thumbs up soldier')
-  console.log(req.body)
+  var URL = `${__dirname}/public/images${body}`
+  if (!body.includes('.')) {
+    fs.remove(URL, err => {
+      if (err) return console.error(err)
+      res.sendStatus(204)
+    })
+  } else if (body.includes('.')) {
+    fs.unlink(URL, err => {
+      if (err) return console.error(err)
+      res.sendStatus(204)
+    }) 
+  }
 })
 //cors
 app.use(function(req, res, next) {

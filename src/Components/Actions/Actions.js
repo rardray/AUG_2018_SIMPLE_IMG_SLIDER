@@ -181,12 +181,9 @@ export function putRequests(url, payload, header, action) {
     })
 }
 
-export function deleteRequests(url, payload, header, action) {
+export function deleteRequests(url, payload) {
     let data = {}
     axios.delete(`${API_URL}${url}`, payload, {
-        headers: header
-    }).then(()=> {
-        return action()
     })
     .catch(err => {
         let data = err.response.data
