@@ -3,7 +3,7 @@ import {API_URL} from './Actions/Actions';
 import {PHOTO_URL} from './Actions/Actions';
 
 const PhotoPreview = (props) => {
-   const {windowHeight, preview, cancelPreview, submit } = props
+   const {windowHeight, preview, cancelPreview, submit, b1, b2 } = props
     return (
     <div style = {{
             width: '100%', 
@@ -20,9 +20,9 @@ const PhotoPreview = (props) => {
                         alt = {`${preview}`}/>
                     <button onClick = { cancelPreview}
                         className = 'btn btn-primary form-control'
-                        style = {{display: 'inline-block', width: '50%'}} >discard</button>
+                        style = {{display: 'inline-block', width: '50%'}} >{b1}</button>
                     <button onClick = {submit} 
-                        className = 'btn btn-primary form-control' style = {{display: 'inline-block', width: '50%'}}>Update Profile Picture</button>
+                        className = 'btn btn-primary form-control' style = {{display: 'inline-block', width: '50%'}}>{b2}</button>
                     </div>
                         <div  onClick = {cancelPreview} style = {{height: '100%', width: '100%'}}>
                         </div>

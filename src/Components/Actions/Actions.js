@@ -90,6 +90,16 @@ export function setImageState(value) {
         return {photos: [...prevState.photos, value], loading: false}
     })
 }
+
+export function removeImage(value) {
+    if(value.photos.length  < this.state.currentIndex + 1 ) {
+        this.prevSlide()
+    }
+    if (value.photos.length === 0) {
+        this.deleteAlbum()
+    }
+        this.setState({togglePreview: !this.state.togglePreview, images: value.photos})
+}
 //push
 export function albumPush(value) {
     this.props.history.push('/album/' + value)
@@ -171,7 +181,8 @@ export function putRequests(url, payload, header, action) {
     axios.put(`${API_URL}${url}`, payload, {
         headers: header
     }).then(res => {
-        data = res.data
+       let data = res.data
+        console.log(data)
         action(data)
     })
     .catch(err => {

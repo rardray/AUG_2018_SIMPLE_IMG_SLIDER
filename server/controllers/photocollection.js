@@ -50,3 +50,23 @@ exports.postPhotoCollection = (function(req, res, next) {
         res.status(201).json(photocollection._id)
     })
 })
+
+exports.putPhotoCollection = (function(req, res, next) {
+    var photos = req.body.photos
+    console.log(photos)
+    PhotoCollection.findByIdAndUpdate(req.params.id, {$set: {"photos" : photos}}, {new: true}, function(err, data) {
+        if (err)  { return next(err) 
+        }
+        res.status(202).send(data)
+    })
+})
+
+exports.deletePhotoCollection = (function(req, res, next) {
+    var id = req.params.id
+
+    PhotoCollection.findByIdAndRemove(id, function(err, data){
+        if (err) {return next(err) }
+        res.status(202).send(data)
+        console.log(id)
+    })
+})

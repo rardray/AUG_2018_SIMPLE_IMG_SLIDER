@@ -15,7 +15,8 @@ const Slide = (  props ) => {
             style = {styles} >
         <img style = 
             { props.flex} src={props.image}
-            alt = {props.image} />
+            alt = {props.image}
+            onClick = {props.handleClick} />
         </div>
     )
 }

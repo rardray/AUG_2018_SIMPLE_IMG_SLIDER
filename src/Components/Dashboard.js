@@ -129,7 +129,9 @@ class Dashboard extends Component {
                     togglePreview = {togglePreview} 
                     windowHeight = {windowHeight}
                     cancelPreview = {this.cancelPreview}
-                    submit = {this.changeProfileImage} /> : null }
+                    submit = {this.changeProfileImage}
+                    b1 = 'Discard'
+                    b2 = 'Update Profile Image' /> : null }
                     <Profile handleDrop = {this.handleDrop} user = {user} />
                 <div style = {{
                         position: 'absolute', 

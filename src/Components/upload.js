@@ -66,7 +66,7 @@ class Upload  extends Component {
         axios.delete(`http://localhost:3001/delete`, {data: {id: `/${id}/${title}` }}).catch(err => err)
         this.props.history.push('/dashboard')
     }
-
+ 
 render() {
     const { photos, loading } = this.state
     return (

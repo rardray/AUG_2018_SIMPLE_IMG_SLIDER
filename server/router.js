@@ -26,6 +26,8 @@ const AuthenticationController = require('./controllers/authentication'),
         albumRoutes.get('/one/:id', requireAuth, albums.getAlbum)
         albumRoutes.get('/:collectionId', requireAuth, albums.getPhotoCollection)
         albumRoutes.post('/', requireAuth, albums.postPhotoCollection )
+        albumRoutes.put('/change/:id', requireAuth, albums.putPhotoCollection)
+        albumRoutes.delete('/delete/:id', requireAuth, albums.deletePhotoCollection)
         app.use('/', apiRoutes)
         apiRoutes.use('/profile', profileRoutes)
 
