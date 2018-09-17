@@ -31,6 +31,7 @@ class Slider extends Component {
       constructor(props) {
         super(props);
         this.state = {
+            title: '',
             images: [],
             currentIndex: 0,
             translateValue: 0,
@@ -49,6 +50,7 @@ class Slider extends Component {
     componentWillMount() {
         this.adjustHeight();
     };
+    
     async setLoader() {return this.setState({loading: true})};
 
     componentDidMount() {
@@ -57,7 +59,6 @@ class Slider extends Component {
         const id = this.props.match.params.id;
         this.getRequests(getAlbums(id), albumsPayload, cookies.get('token'));
         });
-   
         this.windowListeners(
             sliderPayload, actionPayload(
             this.adjustHeight, 
@@ -66,7 +67,6 @@ class Slider extends Component {
             this.keyRight, 
             this.keyLeft),
             window.addEventListener);
-     
     };
 
     componentWillUnmount() {
@@ -110,7 +110,7 @@ class Slider extends Component {
         this.setSlideshow = setInterval(()=>
             this.nextSlide(), 
             5000
-        )
+        );
     };
     stopSlideShow = () => {
         clearInterval(this.setSlideshow)
@@ -152,22 +152,24 @@ class Slider extends Component {
             this.putRequests(url, {photos: value}, {Authorization: cookies.get('token')}, this.removeImage)
     };
     deleteAlbum = () => {
-        const { cookies } = this.props;
+        const { cookies, user } = this.props;
         const id = this.props.match.params.id;
         axios.delete('http://localhost:3001/albums/delete/' + id, {
             headers: {'Authorization' : cookies.get('token')}
-        }).then(() => this.props.history.push('/dashboard'));
+        }).then(()=> axios.delete('http://localhost:3001/delete', {
+            data: {id: `/${user._id}/${this.state.title}`}
+        } )).then(() => this.props.history.push('/dashboard'));
     };
     render() {
         const {loading, togglePreview} = this.state;
         const pictureWrap = () => {
             if(  this.state.width < this.state.height) {
                 return {height: 'auto',
-                        width: '100%'}
+                        width: '100%'};
             } else {
                 return {height: $(window).height() * .8,
                         width: 'auto'}
-            }
+            };
         };
         return (
             <div>

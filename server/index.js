@@ -44,15 +44,18 @@ app.post('/upload/:id/:pid', (req, res, next) => {
 app.delete('/delete', (req, res, next) => {
   var body = req.body.id
   var URL = `${__dirname}/public/images${body}`
+  console.log(URL)
   if (!body.includes('.')) {
     fs.remove(URL, err => {
       if (err) return console.error(err)
       res.sendStatus(204)
+      console.log('delete directory')
     })
   } else if (body.includes('.')) {
     fs.unlink(URL, err => {
       if (err) return console.error(err)
       res.sendStatus(204)
+      console.log('delete file')
     }) 
   }
 })

@@ -22,7 +22,7 @@ const Routes = (props) => {
             <Login {...props} title = 'Register'>
             <RegisterInput {...props} loginUser = {loginUser}/> 
             </Login>} />
-         <Route exact path = '/album/:id' component = {Slider} />
+         <Route exact path = '/album/:id' render = {(props) => <Slider {...props} token = {token} user = {user} />} />
          <Route exact path = '/upload' render = {(props) => <Upload {...props} token = {token} user = {user} />} />
          <Route exact path = '/dashboard' render = {(props) => <Dashboard {...props} updateUser = {updateUser} setUserCookie = {setUserCookie} windowHeight = {windowHeight} token = {token} user = {user}/>} />
          <Route exact path = '/404' component = {error404} />

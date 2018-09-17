@@ -10,8 +10,8 @@ import { getRequests,
         postRequests,
         UPLOAD,
         imageHeader,
-        setProfileImage} from './Actions/Actions'
-import Albums from './Albums'
+        setProfileImage} from './Actions/Actions';
+import Albums from './Albums';
 import '../StyleSheets/style.css';
 import AlbumsBar from './AlbumsBar';
 import Dots from './SliderComponents/Dots';
@@ -36,8 +36,6 @@ class Dashboard extends Component {
         this.setState({loading: true, user: user})
         this.getRequests(listAlbums(user._id), albumListPayload, token)
         windowListeners(albumScrollPayload, actionPayload(this.keyRight, this.keyLeft), window.addEventListener)
-        
-       
     }
     componentWillUnmount() {
         windowListeners(albumScrollPayload, actionPayload(this.keyRight, this.keyLeft), window.removeEventListener)

@@ -75,7 +75,7 @@ export function setProfileImage(value) {
 
 export const albumsPayload = (value) => { 
     return {
-        images: value.photos, loading: false
+        images: value.photos, loading: false, title: value.collectionTitle
     }
 }
 

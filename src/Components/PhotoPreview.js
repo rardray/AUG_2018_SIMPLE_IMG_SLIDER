@@ -3,7 +3,7 @@ import {API_URL} from './Actions/Actions';
 import {PHOTO_URL} from './Actions/Actions';
 
 const PhotoPreview = (props) => {
-   const {windowHeight, preview, cancelPreview, submit, b1, b2 } = props
+   const {windowHeight, preview, cancelPreview, submit, b1, b2 } = props;
     return (
     <div style = {{
             width: '100%', 
@@ -27,6 +27,6 @@ const PhotoPreview = (props) => {
                         <div  onClick = {cancelPreview} style = {{height: '100%', width: '100%'}}>
                         </div>
                     </div>)
-}
+};
 
 export default PhotoPreview;
