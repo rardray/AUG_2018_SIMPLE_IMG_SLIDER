@@ -20,6 +20,12 @@ const UserSchema = new Schema({
         profileImage: {type: String},
         about: {type: String}
     },
+    following: [{
+        type: Schema.Types.ObjectId, ref: 'User'
+    }],
+    followers: [{
+        type: Schema.Types.ObjectId, ref: 'User'
+    }],
     role: {
         type: String,
         enum: ['Public', 'Private' , 'Admin'],

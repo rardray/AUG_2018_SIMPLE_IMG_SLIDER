@@ -31,7 +31,9 @@ const AuthenticationController = require('./controllers/authentication'),
         app.use('/', apiRoutes)
         apiRoutes.use('/profile', profileRoutes)
 
-        profileRoutes.put('/:id', requireAuth, profile.putProfile )
+        profileRoutes.put('/:id', requireAuth, profile.putProfile );
+        profileRoutes.put('/following/:id', requireAuth, profile.putFollowing);
+        profileRoutes.get('/all/:id', requireAuth, profile.getProfiles )
 
 
         

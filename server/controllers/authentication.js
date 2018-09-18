@@ -18,12 +18,15 @@ function setUserInfo(request) { //<--- set info for cookie.. no sensitive like p
         email: request.email,
         role: request.role,
         profileImage: request.profile.profileImage,
-        about: request.profile.about
+        about: request.profile.about,
+        following: request.following,
+        followers: request.followers
     }
 }
 //login route : used in router.js api/auth/login
 exports.login = function(req, res, next) {
     let userInfo = setUserInfo(req.user)  // <---take submitted data set then generate token and user
+    console.log(userInfo)
     res.status(200).json({
         token: 'JWT ' + generateToken(userInfo),
         user: userInfo

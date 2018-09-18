@@ -248,6 +248,23 @@ html, body, .app, .main {
             object-fit: cover;
             opacity: 1;
         }
+
+        .friends-photo {
+            height: 50px;
+            width: 50px;
+            border-radius: 100%;
+            display: inline-block;
+            position: relative;
+            left: 0px;
+            object-fit: cover;
+        }
+        .friends-type {
+            padding: 0px;
+            padding-left: 6px;
+            padding-right: 6px;
+            margin: 0px;
+            font-size: 12px;
+        }
     @keyframes icon-hover {
         from {background-color: transparent; border-width: 0px; border-color: transparent;}
         to {background-color: lightgray; border-width: 6px; border-color: skyblue;}

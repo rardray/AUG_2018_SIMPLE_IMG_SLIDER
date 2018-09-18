@@ -10,7 +10,11 @@ import { getRequests,
         postRequests,
         UPLOAD,
         imageHeader,
-        setProfileImage} from './Actions/Actions';
+        getUsersPayload,
+        setProfileImage,
+        API_URL,
+        PHOTO_URL,
+        setFollowing} from './Actions/Actions';
 import Albums from './Albums';
 import '../StyleSheets/style.css';
 import AlbumsBar from './AlbumsBar';
@@ -19,22 +23,27 @@ import Profile from './Profile';
 import ImageCompressor from 'image-compressor.js';
 import PhotoPreview from './PhotoPreview';
 import axios from 'axios';
+import FriendsBar from './FriendsBar';
 
 
 class Dashboard extends Component {
     constructor(props) {
         super(props)
-        this.state = {albums: [], width: '', translate: 0, index: 0, user: [], preview: '', togglePreview: false }
+        this.state = {albums: [], width: '', translate: 0, index: 0, user: [], preview: '', togglePreview: false, friends: [], following: [], followers: [] }
         this.getRequests = getRequests.bind(this)
         this.postRequests = postRequests.bind(this)
         this.setProfileImage = setProfileImage.bind(this)
         this.putRequests = putRequests.bind(this)
+        this.setFollowing = setFollowing.bind(this)
     }
 
     componentDidMount() {
         const { token, user } = this.props
-        this.setState({loading: true, user: user})
+        console.log(user)
+        console.log(user.following.length)
+        this.setState({loading: true, user: user, following: user.following.length, followers: user.followers.length})
         this.getRequests(listAlbums(user._id), albumListPayload, token)
+        this.getRequests('/profile/all/' + user._id, getUsersPayload, token )
         windowListeners(albumScrollPayload, actionPayload(this.keyRight, this.keyLeft), window.addEventListener)
     }
     componentWillUnmount() {
@@ -114,12 +123,20 @@ class Dashboard extends Component {
         const {token} = this.props
         const id = this.state.user._id;
         this.putRequests(putImage(id), {profileImage: this.state.preview}, {Authorization: token}, this.setProfileImage)
-
-
+ }
+    followUser = (id, e) => {
+        e.preventDefault()
+        const {token} = this.props
+        const { _id } = this.state.user
+        console.log(id)
+        if (this.state.user.following.includes(`${id}`)) {
+            return
+        }
+        this.putRequests(`/profile/following/${_id}`, {id: id}, {Authorization: token}, this.setFollowing)
     }
     render() {
         const {windowHeight} = this.props 
-        const {translate, user, togglePreview, preview} = this.state
+        const {translate, user, togglePreview, preview, following, followers} = this.state
             return(
                 <div >
                 {togglePreview ? <PhotoPreview 
@@ -130,7 +147,15 @@ class Dashboard extends Component {
                     submit = {this.changeProfileImage}
                     b1 = 'Discard'
                     b2 = 'Update Profile Image' /> : null }
-                    <Profile handleDrop = {this.handleDrop} user = {user} />
+                    <Profile followers = {followers} following = {following} handleDrop = {this.handleDrop} user = {user} />
+                    {this.state.friends.map((el, i) => {
+                        return <FriendsBar
+                            key = {i}
+                            name = {el.name}
+                            email = {el.email} 
+                            profileImage = {`${API_URL}${PHOTO_URL}${el.profileImage}`}
+                            handleClick = {this.followUser.bind(this, el.id)}/>
+                    })}
                 <div style = {{
                         position: 'absolute', 
                         bottom: 0,  

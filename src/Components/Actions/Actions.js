@@ -100,6 +100,17 @@ export function removeImage(value) {
     }
         this.setState({togglePreview: !this.state.togglePreview, images: value.photos})
 }
+export const getUsersPayload = (value) => {
+    return {
+        friends: value
+    }
+}
+
+export function setFollowing(value) {
+    this.setState(prevState => {
+        return {user: {...prevState.user, following: value.following}}
+    })
+}
 //push
 export function albumPush(value) {
     this.props.history.push('/album/' + value)
@@ -147,7 +158,7 @@ export function loginUser(data, url, value){
 export function getRequests(url, payload, token){
     let data = {}
     axios.get(`${API_URL}${url}`, {
-        headers: {Authorization: token}
+        headers: {Authorization: token, Friends: 'friend-bar'}
     }).then(res => {
         data = res.data
         this.setState(payload(data))
