@@ -1,16 +1,16 @@
 import React from 'react';
 import { Route, withRouter } from 'react-router-dom';
-import Input from './Input'
+import Input from './Input';
 import RegisterInput from './RegisterInput';
 import SignUp from './SignUp';
 import Login from './LoginComponents/Login';
-import Slider from './Slider'
-import Upload from './upload'
-import Dashboard from './Dashboard'
-import error404 from './404'
+import Slider from './Slider';
+import Upload from './upload';
+import Dashboard from './Dashboard';
+import error404 from './404';
 
 const Routes = (props) => {
-    const { loginUser, history, token, user, windowHeight, setUserCookie, updateUser } = props
+    const { loginUser, history, token, user, windowHeight, setUserCookie, updateUser } = props;
     return (
         <div>
         <Route exact path = '/login' render = {(props) => 
@@ -28,6 +28,6 @@ const Routes = (props) => {
          <Route exact path = '/404' component = {error404} />
          </div>
     )
-}
+};
 
-export default withRouter(Routes)
+export default withRouter(Routes);

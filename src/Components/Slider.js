@@ -85,6 +85,7 @@ class Slider extends Component {
     adjustHeight = () => {
         this.setState({width: $(window).width(), height: $(window).height() });
     };
+    
     nextSlide = () => {
         if(this.state.currentIndex === this.state.images.length -1) { //<--- returns to beginning of slide if at last slide
             return this.resetValues();
@@ -94,6 +95,7 @@ class Slider extends Component {
             translateValue: prevState.translateValue + - (this.slideWidth())
         }));
     };
+   
     prevSlide = () => {
         if(this.state.currentIndex === 0) {
             return this.setState({
@@ -106,35 +108,40 @@ class Slider extends Component {
             translateValue: prevState.translateValue - -(this.slideWidth())
         }));
     };
+   
     startSlideShow = () => {
         this.setSlideshow = setInterval(()=>
             this.nextSlide(), 
             5000
         );
     };
+    
     stopSlideShow = () => {
         clearInterval(this.setSlideshow)
     };
     resetValues = () => {
         this.setState({currentIndex: 0, translateValue: 0})
     }
+    
     slideWidth = () => {
         return document.querySelector('.slide').clientWidth //<--- finds width of class 'slide'
     }
     //key listeners
     keyRight = (e) => {
         if(e.keyCode === 39) {
-            return this.nextSlide()
+            return this.nextSlide();
         };
     };
+    
     keyLeft = (e) => {
         if(e.keyCode === 37) {
-            return this.prevSlide()
+            return this.prevSlide();
         };
     };
+    
     editImage = (e) => {
-        e.preventDefault()
-        this.setState({togglePreview: !this.state.togglePreview})
+        e.preventDefault();
+        this.setState({togglePreview: !this.state.togglePreview});
     };
 
     deletePhoto = (e) => {
@@ -144,12 +151,11 @@ class Slider extends Component {
         const url = '/albums/change/' + id;
         console.log(id);
         const value = this.state.images.filter(el => {
-            return el  !== this.state.images[this.state.currentIndex]
+            return el  !== this.state.images[this.state.currentIndex];
         });
-        console.log(value);
         axios.delete(`http://localhost:3001/delete`, 
             {data: {id: this.state.images[this.state.currentIndex]}});
-            this.putRequests(url, {photos: value}, {Authorization: cookies.get('token')}, this.removeImage)
+            this.putRequests(url, {photos: value}, {Authorization: cookies.get('token')}, this.removeImage);
     };
     deleteAlbum = () => {
         const { cookies, user } = this.props;
@@ -168,7 +174,7 @@ class Slider extends Component {
                         width: '100%'};
             } else {
                 return {height: $(window).height() * .8,
-                        width: 'auto'}
+                        width: 'auto'};
             };
         };
         return (

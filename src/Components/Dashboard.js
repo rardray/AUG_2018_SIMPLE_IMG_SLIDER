@@ -28,115 +28,125 @@ import FriendsBar from './FriendsBar';
 
 class Dashboard extends Component {
     constructor(props) {
-        super(props)
-        this.state = {albums: [], width: '', translate: 0, index: 0, user: [], preview: '', togglePreview: false, friends: [], following: [], followers: [] }
-        this.getRequests = getRequests.bind(this)
-        this.postRequests = postRequests.bind(this)
-        this.setProfileImage = setProfileImage.bind(this)
-        this.putRequests = putRequests.bind(this)
-        this.setFollowing = setFollowing.bind(this)
+        super(props);
+        this.state = {
+            albums: [], 
+            width: '', 
+            translate: 0, 
+            index: 0, 
+            user: [], 
+            preview: '', 
+            togglePreview: false, 
+            friends: [], 
+            following: [], 
+            followers: [] 
+        };
+        this.getRequests = getRequests.bind(this);
+        this.postRequests = postRequests.bind(this);
+        this.setProfileImage = setProfileImage.bind(this);
+        this.putRequests = putRequests.bind(this);
+        this.setFollowing = setFollowing.bind(this);
     }
 
     componentDidMount() {
-        const { token, user } = this.props
-        console.log(user)
-        console.log(user.following.length)
-        this.setState({loading: true, user: user, following: user.following.length, followers: user.followers.length})
-        this.getRequests(listAlbums(user._id), albumListPayload, token)
-        this.getRequests('/profile/all/' + user._id, getUsersPayload, token )
-        windowListeners(albumScrollPayload, actionPayload(this.keyRight, this.keyLeft), window.addEventListener)
-    }
+        const { token, user } = this.props;
+        this.setState({loading: true, user: user, following: user.following.length, followers: user.followers.length});
+        this.getRequests(listAlbums(user._id), albumListPayload, token);
+        this.getRequests('/profile/all/' + user._id, getUsersPayload, token );
+        windowListeners(albumScrollPayload, actionPayload(this.keyRight, this.keyLeft), window.addEventListener);
+    };
     componentWillUnmount() {
-        windowListeners(albumScrollPayload, actionPayload(this.keyRight, this.keyLeft), window.removeEventListener)
-        this.props.updateUser(this.state.user)
-    }
+        windowListeners(albumScrollPayload, actionPayload(this.keyRight, this.keyLeft), window.removeEventListener);
+        this.props.updateUser(this.state.user);
+    };
 
-    componentDidUpdate() {
-        console.log(this.state.user)
-    }
     selectAlbum = (id, e) => {
-        e.preventDefault()
-        this.props.history.push(`/album/${id}`)
-    }
+        e.preventDefault();
+        this.props.history.push(`/album/${id}`);
+    };
 
     scrollAlbumRight = () => {
-        const { index, albums } = this.state
+        const { index, albums } = this.state;
         if(index === albums.length -1) {
             return
-        }
+        };
         this.setState(prevState => {
             return {index: prevState.index + 1, translate: prevState.translate + -(345)}
-        })
-    }
+        });
+    };
+
     scrollAlbumLeft = () => {
-        const { index } = this.state
+        const { index } = this.state;
         if (index === 0 ) {
             return 
-        }
+        };
         this.setState(prevState => {
             return {index: prevState.index -1, translate: prevState.translate - -(345)}
-        })
-    }
+        });
+    };
+
     keyRight = (e) => {
         if(e.keyCode === 39) {
             return this.scrollAlbumRight()
-        }
-    }
+        };
+    };
+
     keyLeft = (e) => {
         if(e.keyCode === 37) {
             return this.scrollAlbumLeft()
-        }
-    }
+        };
+    };
+
     cancelPreview = (e) => {
-        e.preventDefault()
-        const id = this.state.preview
-        const { token } = this.props
-        console.log(id)
+        e.preventDefault();
+        const id = this.state.preview;
+        const { token } = this.props;
+        console.log(id);
         axios.delete(`http://localhost:3001/delete`, {
             data: {id}
         } , {
-        }).catch(err => err)
-        this.setState({togglePreview: !this.state.togglePreview})
-    }
+        }).catch(err => err);
+        this.setState({togglePreview: !this.state.togglePreview});
+    };
     setPreview = (data) => {
-        this.setState({preview: data, togglePreview: !this.state.togglePreview})
-    }
+        this.setState({preview: data, togglePreview: !this.state.togglePreview});
+    };
 
     handleDrop = files => {
         const postRequests = this.postRequests;
-        const setPreview = this.setPreview
-        const id = this.state.user._id
-        const pid = 'profileimage'
+        const setPreview = this.setPreview;
+        const id = this.state.user._id;
+        const pid = 'profileimage';
         new ImageCompressor(files[0], {
             quality: .5,
             maxwidth: 1000,
             maxHeight: 1000,
             success(result) {
-                const formData = new FormData()
-                formData.append('file', result)
-                formData.append('filename', result.name.replace(/ /g, '_'))
+                const formData = new FormData();
+                formData.append('file', result);
+                formData.append('filename', result.name.replace(/ /g, '_'));
                 return postRequests(UPLOAD(id, pid), formData, imageHeader, setPreview)
             }
-        } )
-    }
+        });
+    };
     changeProfileImage = () => {
-        const {token} = this.props
+        const {token} = this.props;
         const id = this.state.user._id;
-        this.putRequests(putImage(id), {profileImage: this.state.preview}, {Authorization: token}, this.setProfileImage)
+        this.putRequests(putImage(id), {profileImage: this.state.preview}, {Authorization: token}, this.setProfileImage);
  }
     followUser = (id, e) => {
-        e.preventDefault()
-        const {token} = this.props
-        const { _id } = this.state.user
-        console.log(id)
+        e.preventDefault();
+        const {token} = this.props;
+        const { _id } = this.state.user;
         if (this.state.user.following.includes(`${id}`)) {
             return
-        }
-        this.putRequests(`/profile/following/${_id}`, {id: id}, {Authorization: token}, this.setFollowing)
+        };
+        this.putRequests(`/profile/following/${_id}`, {id: id}, {Authorization: token}, this.setFollowing);
     }
+
     render() {
-        const {windowHeight} = this.props 
-        const {translate, user, togglePreview, preview, following, followers} = this.state
+        const {windowHeight} = this.props ;
+        const {translate, user, togglePreview, preview, following, followers} = this.state;
             return(
                 <div >
                 {togglePreview ? <PhotoPreview 
@@ -191,6 +201,6 @@ class Dashboard extends Component {
             </div>
         )
     }
-}
+};
 
 export default Dashboard;

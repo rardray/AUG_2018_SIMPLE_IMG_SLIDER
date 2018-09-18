@@ -1,5 +1,5 @@
-import React from 'react'
-import '../StyleSheets/style.css'
+import React from 'react';
+import '../StyleSheets/style.css';
 
 const ImagePreview = props => {
     return (
@@ -7,6 +7,6 @@ const ImagePreview = props => {
             <img  src = {props.photos}  alt = {`${props.photos}`} className = 'image-preview'/>
         </div>
     )
-}
+};
 
 export default ImagePreview;

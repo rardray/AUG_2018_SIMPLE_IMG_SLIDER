@@ -16,7 +16,7 @@ function Progress(props) {
       <CircularProgress className={classes.progress} />
     </div>
   );
-}
+};
 
 Progress.propTypes = {
   classes: PropTypes.object.isRequired,

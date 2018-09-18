@@ -1,21 +1,22 @@
 import React, {Component} from 'react';
-import $ from 'jquery'
+import $ from 'jquery';
+
 const width = () => {
     if($(window).height()>$(window).width()) {
         return '275%'
-    }
+    };
     return '100%'
-}
+};
 const position = () => {
     if($(window).height() > $(window).width()){
         return '6%'
-    }
+    };
     return '35%'
-}
+};
 
 class Login extends Component {
     render() {
-       const {title} = this.props
+       const {title} = this.props;
         return (
             
             <div className = 'containter' 
@@ -45,7 +46,7 @@ class Login extends Component {
                         </div>
                     </div>
                 )
-    }
-}
+    };
+};
 
 export default Login;

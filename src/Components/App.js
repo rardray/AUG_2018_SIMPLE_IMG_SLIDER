@@ -1,54 +1,56 @@
 import React, { Component } from 'react';
 import '../StyleSheets/App.css';
-import '../StyleSheets/App.css'
+import '../StyleSheets/App.css';
 import $ from 'jquery';
 import {windowListeners, setProfileImage} from './Actions/Actions';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
-import {loginUser} from './Actions/Actions'
+import {loginUser} from './Actions/Actions';
 import NavBar from './NavBar';
 import Routes from './Routes';
 
 class App extends Component {
   static propTypes = {
     cookies: instanceOf(Cookies).isRequired
-  }
+  };
   constructor(props) {
-    super(props)
-    const { cookies } = props
-    this.state = { windowHeight: null, user: cookies.get('user') || [], authorized: false }
-  this.loginUser = loginUser.bind(this)
-  this.setProfileImage = setProfileImage.bind(this)
+    super(props);
+    const { cookies } = props;
+    this.state = { windowHeight: null, user: cookies.get('user') || [], authorized: false };
+  this.loginUser = loginUser.bind(this);
+  this.setProfileImage = setProfileImage.bind(this);
 }
    componentWillMount() {
-    this.adjustHeight()
-}
+    this.adjustHeight();
+};
   
   componentDidMount(){
-    const {cookies} = this.props
+    const {cookies} = this.props;
     if(cookies.get('token')) {
-      this.setState({authorized: true})
+      this.setState({authorized: true});
     } else {
-      this.props.history.push('/login')
-    }
-    windowListeners({a: 'resize'}, this.adjustHeight, window.addEventListener)
-  }
+      this.props.history.push('/login');
+    };
+    windowListeners({a: 'resize'}, this.adjustHeight, window.addEventListener);
+  };
+
   updateUser = (data) => {
-    this.setState({user: data})
-  }
+    this.setState({user: data});
+  };
+
   adjustHeight = () =>{
-    this.setState({windowHeight: $(window).height()})
-  }
+    this.setState({windowHeight: $(window).height()});
+  };
   clearInfo = () => {
-    const { cookies } = this.props
-    cookies.remove('token')
-    cookies.remove('user')
-    this.setState({authorized: false, user: ''})
-    this.props.history.push('/login')
-  }
+    const { cookies } = this.props;
+    cookies.remove('token');
+    cookies.remove('user');
+    this.setState({authorized: false, user: ''});
+    this.props.history.push('/login');
+  };
   
   render() {
-    const {cookies} = this.props
+    const {cookies} = this.props;
     return (
       <div>
         <NavBar
@@ -63,7 +65,7 @@ class App extends Component {
        </div>
        </div>
     );
-  }
-}
+  };
+};
 
 export default withCookies(App);

@@ -5,7 +5,7 @@ import { API_URL, PHOTO_URL } from './Actions/Actions';
 
 const Profile = (props) => {
    
-    const {user, following, followers } = props
+    const {user, following, followers } = props;
     return(
         
         <div style = {{display: 'inline-block', position: 'absolute', left: 0, width: '15%'}}>
@@ -21,7 +21,7 @@ const Profile = (props) => {
             <p> Following {following} Followers: {followers} </p>
         </div>
     )
-}
+};
 
 
 

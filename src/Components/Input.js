@@ -1,31 +1,34 @@
 import React, { Component } from 'react';
 
-const url = 'login'
+const url = 'login';
+
 const payload = (data) => {
-    return {authorized: true, user: data}
-}
+    return {authorized: true, user: data};
+};
+
 class Input extends Component {
     constructor(props) {
-        super(props)
-        this.state = {email: '', password: ''}
-    }
+        super(props);
+        this.state = {email: '', password: ''};
+    };
    
     handleChange = (e) => {
-        const target = e.target
-        const value = target.value
-        const name = target.name
+        const target = e.target;
+        const value = target.value;
+        const name = target.name;
         this.setState({
             [name]:  value
-        })
-    }
+        });
+    };
 
     handleSubmit = e => {
         if(!this.state.email || !this.state.password) {
             return
-        }
-        e.preventDefault()
-        this.props.loginUser(this.state, url, payload)
-    }
+        };
+        e.preventDefault();
+        this.props.loginUser(this.state, url, payload);
+    };
+
     render() {
         return (
             <div className = 'card-footer'>
@@ -48,6 +51,7 @@ class Input extends Component {
                 <button onClick = {this.handleSubmit} className = 'btn btn-primary form-control'>Login</button>
             </div>
         )
-    }
-}
-export default Input
+    };
+};
+
+export default Input;

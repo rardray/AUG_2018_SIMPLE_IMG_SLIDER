@@ -4,8 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import '../StyleSheets/style.css'
-import {API_URL, PHOTO_URL } from './Actions/Actions'
+import '../StyleSheets/style.css';
+import {API_URL, PHOTO_URL } from './Actions/Actions';
 
 const styles = {
     card: {
@@ -21,7 +21,7 @@ const styles = {
   };
 
 const Albums = (props) => {
-    const { classes } = props
+    const { classes } = props;
     return (
         <div   
             onClick = {props.handleClick} 
@@ -58,7 +58,7 @@ const Albums = (props) => {
             </Card>
         </div>
         )
-}
+};
 Albums.propTypes = {
     classes: PropTypes.object.isRequired,
   };
