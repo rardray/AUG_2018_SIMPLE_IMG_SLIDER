@@ -158,7 +158,7 @@ class Dashboard extends Component {
                     b1 = 'Discard'
                     b2 = 'Update Profile Image' /> : null }
                     <Profile followers = {followers} following = {following} handleDrop = {this.handleDrop} user = {user} />
-                    {this.state.friends.map((el, i) => {
+                    {this.state.friends.slice(0,3).map((el, i) => {
                         return <FriendsBar
                             key = {i}
                             name = {el.name}

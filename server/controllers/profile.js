@@ -27,6 +27,7 @@ exports.putFollowing = function(req, res, next) {
          console.log(data);
     })
 }
+
 function getUserSchema(data)  {
     let user = data.map(el => {
         return {
