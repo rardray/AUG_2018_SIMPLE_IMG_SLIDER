@@ -22,7 +22,7 @@ author: Ryan Ardray
 - Refractor and potentially utilize Latest React Suspense feature.
 
 
-I started this project initially as just wanting to create an image carousel, but I really wanted to take and apply what I had learned about creating JWT and cookies and customize it as well as implement file serving using only node and express file serve.  As always, practice in refactoring and UI interaction are always to priorities.
+I started this project initially as just wanting to create an image carousel, but I really wanted to take and apply what I had learned about creating JWT and cookies and customize it as well as implement file serving using only node and express file serve.  As always, practice in refactoring and UI interaction are always top priorities.
 
 ### Steps to view this app:
 
@@ -43,10 +43,15 @@ $ mongod --dbpath db
 Install nodemon
 ```
 $ npm install nodemon
-//start express server
+```
+Start express server
+```
 $ nodemon index.js
-//start react app
+```
+Start react app
+```
 $ cd ..
 $ yarn start
 //or
 $ npm start
+```
