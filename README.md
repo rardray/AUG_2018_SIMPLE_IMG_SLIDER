@@ -36,6 +36,8 @@ $ npm install
 ```
 Then start mongo server.  Make sure you are in root folder.
 ```
+$ cd server 
+$ mkdir db
 $ mongod --dbpath db
 ```
 Install nodemon
