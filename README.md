@@ -26,15 +26,15 @@ I started this project initially as just wanting to create an image carousel, bu
 
 ### Steps to view this app:
 
-must have Node and Mongo DB installed
-download code.
+must have Node and Mongo DB installed.
 
-Install dependencies
-
+download code. 
 ```
+$ cd <project root directory>
+//Install dependencies
 $ npm install
 ```
-Then start mongo server.  Make sure you are in root folder.
+Then start mongo server.
 ```
 $ cd server 
 $ mkdir db
@@ -46,7 +46,7 @@ $ npm install nodemon
 //start express server
 $ nodemon index.js
 //start react app
-$ cd client
+$ cd ..
 $ yarn start
 //or
 $ npm start
