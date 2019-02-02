@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "node": "11.6.0",
+    "npm": "6.5.0",
     "ajv": "^6.5.2",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
