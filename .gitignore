@@ -2,12 +2,13 @@
 
 # dependencies
 /node_modules
+/client/node_modules
 
 # testing
-/coverage
+client/coverage
 
 # production
-/build
+client/build
 
 # misc
 .DS_Store
@@ -23,7 +24,6 @@ yarn-error.log*
 *.JPG
 /public/images
 .vscode
-server/db
-/server/db
-/server/public/images
-/.vscode
+/db
+/public/images
+.vscode
