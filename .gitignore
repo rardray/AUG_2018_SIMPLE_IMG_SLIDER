@@ -28,3 +28,4 @@ yarn-error.log*
 /public/images
 .vscode
 node_modules/
+client/node_modules/
